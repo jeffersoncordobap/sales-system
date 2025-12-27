@@ -1,0 +1,505 @@
+/* ==========================================================
+   ESTILOS GLOBALES
+   ========================================================== */
+QWidget {
+    font-family: "Segoe UI", Arial;
+    font-size: 12pt;
+}
+
+QPushButton {
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+QPushButton:hover{
+    color: #1d3f55;
+}
+
+QStackedWidget {
+    background-color: #f5f7f9;
+}
+
+/* Estilo de la tabla */
+QTableWidget {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    gridline-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+QHeaderView::section {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #2c7893;
+    font-weight: bold;
+}
+
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DEL LOGIN
+   ========================================================== */
+QWidget#VentanaLogin {
+    background-color: qlineargradient(
+    spread:pad, x1:0, y1:0, x2:0, y2:1, 
+    stop:0 #E3F2FD,   /* Azul muy pálido, casi blanco */
+    stop:0.4 #78ADC2, /* Tono intermedio */
+    stop:1 #35c7f3    /* Tu azul base */
+);
+    border-radius: 15px;
+}
+
+QPushButton#btnOlvido{
+    color: #ffffffff;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    font-size: 11px;
+}
+
+QPushButton#btn_olvido:hover {
+    color: #bad9f0;
+}
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE LA VENTANA PRINCIPAL
+   ========================================================== */
+QFrame#barraLateral {
+    background-color: #2c7893; /* El azul de tu imagen */
+    border: none;
+}
+
+QLabel#barraLateralLogo {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 10px;  
+}
+
+/* Botones del Menú */
+QPushButton#botonMenu {
+    background-color: transparent;
+    color: #e0e0e0;
+    text-align: left;
+    padding: 12px 15px;
+    border: none;
+    font-size: 14px;
+}
+
+
+QPushButton#botonMenu:hover {
+    background-color: #3d8da8;
+    color: white;
+}
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE EL INVENTARIO
+   ========================================================== */
+QPushButton#btnActualizar {
+    background-color: #5dade2;
+    border-radius: 4px;
+    color: white;
+    padding: 6px 12px;
+}
+
+QPushButton#btnActualizar:hover {
+    background-color: #1dd2f1;
+    color: white;
+}
+
+QPushButton#btnExportar {
+    background-color: #27ae60;
+    border-radius: 4px;
+    color: white;
+    padding: 6px 12px;
+}
+
+QPushButton#btnExportar:hover {
+    background-color: #59ff4a;
+    color: white;
+}
+
+QPushButton#btnNuevo{
+    background-color: #f1c40f;  
+    border-radius: 4px;
+    color: white;
+    padding: 6px 12px;
+}
+
+QPushButton#btnNuevo:hover {
+    background-color: #ffcc00;
+    color: white;
+}
+
+QPushButton#btnVerTabla {
+    background-color: #2c7893;
+    color: white;
+    border-radius: 3px;
+    padding: 2px 10px;
+    font-size: 11px;
+    margin: 2px;
+}
+
+QPushButton#btnVerTabla:hover {
+    background-color: #1e5a70;
+}
+
+QHeaderView::section {
+    background-color: #f8f9fa;
+    padding: 6px; /* Espacio interno para que no choquen los textos */
+    border: none;
+    border-bottom: 2px solid #2c7893;
+    font-weight: bold;
+}
+
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE VENTAS
+   ========================================================== */
+QPushButton#btnAbrirCaja {
+    background-color: transparent;
+    color: #1f8ac9;
+    border: 1px solid #1f8ac9;
+}
+
+QPushButton#btnAbrirCaja:hover {
+    background-color: #1dd2f1;
+    color: white;
+}
+
+QPushButton#btnCerrarCaja {
+    background-color: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+QPushButton#btnCerrarCaja:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+
+QPushButton#btnAgregarCarrito {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+QPushButton#btnAgregarCarrito:hover {
+    background-color: #1dd2f1;
+    color: white;
+}
+
+
+QPushButton#btnConfirmarPago {
+    background-color: #27ae60;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+
+QPushButton#btnConfirmarPago:hover {
+    background-color: #13d664;
+    color: white;
+}
+
+QPushButton#btnVaciarCarrito {
+    background-color: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+QPushButton#btnVaciarCarrito:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+QComboBox#ComboBuscarProducto{
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fdfdfd;
+}
+
+QComboBox#ComboDescuento{
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 12px;
+    background-color: #fdfdfd;
+}
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE DIALOGO CONFIRMAR PAGO
+   ========================================================== */
+
+QDialog#VentanaPago {
+    background-color: #ffffff;
+}
+
+/* Contenedor de Totales */
+QFrame#ContenedorResumen {
+    background-color: #2c3e50;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QLabel#LabelTotal {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+QLabel#LabelRestante {
+    color: #f1c40f; /* Amarillo para resaltar lo que falta */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+QComboBox#ComboMedioPago{
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fdfdfd;
+}
+
+QLineEdit#EntradaMonto{
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fdfdfd;
+}
+
+QLineEdit#EntradaMonto:focus {
+    border-color: #3498db;
+}
+
+/* Botón Añadir Pago */
+QPushButton#BtnAnadir {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+QPushButton#BtnAnadir:hover {
+    background-color: #2980b9;
+    color: white;
+}
+
+QPushButton#BtnAnadir:disabled {
+    background-color: #bdc3c7;
+}
+
+
+/* Lista de Pagos */
+QListWidget#ListaPagos {
+    border: 1px solid #dcdde1;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 13px;
+    color: #2f3640;
+}
+
+/* Botón Limpiar */
+QPushButton#BtnLimpiar {
+    background-color: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+
+QPushButton#BtnLimpiar:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Vuelto y Factura */
+QLabel#LabelVuelto {
+    font-size: 20px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+QCheckBox#CheckFactura {
+    font-weight: bold;
+    color: #7f8c8d;
+}
+
+/* Botones Finales */
+QPushButton#BtnConfirmar {
+    background-color: #27ae60;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+QPushButton#BtnConfirmar:disabled {
+    background-color: #bdc3c7;
+}
+
+QPushButton#BtnConfirmar:hover {
+    background-color: #13d664;
+    color: white;
+}
+
+
+QPushButton#BtnCancelar {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE APERTURA DE CAJA
+   ========================================================== */
+QDialog#DialogoApertura {
+    background-color: #ffffff;
+}
+
+/* Cabecera Azul Oscura */
+QFrame#CabeceraApertura {
+    background-color: #34495e;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+QLabel#TituloApertura {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+QLabel#InfoApertura {
+    color: #ecf0f1;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Sección de Entrada */
+QLabel#EtiquetaInstruccion {
+    font-weight: bold; 
+    color: #2c3e50;
+    font-size: 18px;
+}
+
+QLineEdit#EntradaMontoApertura {
+    font-size: 20px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding-left: 8px;
+    background-color: #f9f9f9;
+}
+
+QLineEdit#EntradaMontoApertura:focus {
+    border-color: #3498db;
+    background-color: #ffffff;
+}
+
+/* Botón de Éxito */
+QPushButton#BtnConfirmarApertura {
+    background-color: #27ae60;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+QPushButton#BtnConfirmarApertura:hover {
+    background-color: #2ecc71;
+}
+
+QPushButton#BtnConfirmarApertura:pressed {
+    background-color: #1e8449;
+}
+
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE CIERRE DE CAJA
+   ========================================================== */
+
+QDialog#DialogoCierre {
+    background-color: #ffffff;
+}
+
+/* Cabecera */
+QFrame#CabeceraCierre {
+    background-color: #2c3e50;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QLabel#TituloCierre {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QLabel#InfoCierre {
+    color: #bdc3c7;
+    font-size: 11px;
+}
+
+QLabel#MontoEsperado {
+    color: #3498db;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Inputs */
+QLineEdit#EntradaDeclarado {
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid #dfe4ea;
+    border-radius: 6px;
+}
+
+QTextEdit#TxtObservaciones {
+    border: 1px solid #dfe4ea;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+/* Frame de Diferencia */
+QFrame#FrameDiferencia {
+    background-color: #f1f2f6;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+QLabel#LabelDiferencia {
+    font-size: 18px;
+}
+
+/* Botones */
+QPushButton#BtnFinalizarCierre {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+QPushButton#BtnFinalizarCierre:hover {
+    background-color: #34495e;
+}
+
+QCheckBox#CheckExportar {
+    font-weight: bold;
+    color: #7f8c8d;
+}
