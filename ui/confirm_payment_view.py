@@ -42,7 +42,7 @@ class DialogoPago(QDialog):
         
         self.combo_medio_pago = QComboBox()
         self.combo_medio_pago.setObjectName("ComboMedioPago")
-        self.combo_medio_pago.addItems(["Efectivo", "Tarjeta Débito", "Tarjeta Crédito", "Transferencia"])
+        self.combo_medio_pago.addItems(["Efectivo", "Tarjeta", "Transferencia"])
         
         self.entrada_monto = QLineEdit()
         self.entrada_monto.setPlaceholderText("0.00")

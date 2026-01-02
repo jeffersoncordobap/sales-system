@@ -7,6 +7,7 @@ from PySide6.QtGui import QIcon
 from ui.sales_view import PaginaVentas
 from ui.inventory_view import PaginaInventario
 from ui.reports_view import PaginaReportes
+from ui.expenses_view import PaginaGastos
 
 class VentanaPrincipal(QMainWindow):
     def __init__(self):
@@ -42,8 +43,8 @@ class VentanaPrincipal(QMainWindow):
         self.btn_ventas = QPushButton(" Ventas")
         self.btn_ventas.setIcon(QIcon(":/icons/ventas.png"))
         
-        self.btn_movimientos = QPushButton(" Movimientos")
-        self.btn_movimientos.setIcon(QIcon(":/icons/gastos.png"))
+        self.btn_gastos = QPushButton(" Gastos")
+        self.btn_gastos.setIcon(QIcon(":/icons/gastos.png"))
         
         self.btn_reportes = QPushButton(" Reportes")
         self.btn_reportes.setIcon(QIcon(":/icons/reportes.png"))
@@ -58,7 +59,7 @@ class VentanaPrincipal(QMainWindow):
         self.btn_configuracion.setIcon(QIcon(":/icons/configuracion.png"))
 
         self.lista_botones = [
-            self.btn_ventas, self.btn_movimientos, self.btn_reportes, 
+            self.btn_ventas, self.btn_gastos, self.btn_reportes, 
             self.btn_inventario, self.btn_dashboard, self.btn_configuracion
         ]
 
@@ -76,12 +77,18 @@ class VentanaPrincipal(QMainWindow):
         self.pagina_ventas = PaginaVentas()
         self.pagina_inventario = PaginaInventario()
         self.pagina_reportes = PaginaReportes()
+        self.pagina_gastos = PaginaGastos()
         self.pagina_dashboard = QLabel("Panel de Control (Dashboard) - Próximamente")
         self.pagina_dashboard.setAlignment(Qt.AlignCenter)
-       
-        self.area_contenido.addWidget(self.pagina_ventas)     
+        self.pagina_configuracion = QLabel("Panel de Control (Configuración) - Próximamente")
+        self.pagina_configuracion.setAlignment(Qt.AlignCenter)
+        
+        self.area_contenido.addWidget(self.pagina_ventas)   
+        self.area_contenido.addWidget(self.pagina_gastos)   
         self.area_contenido.addWidget(self.pagina_inventario) 
         self.area_contenido.addWidget(self.pagina_reportes) 
         self.area_contenido.addWidget(self.pagina_dashboard)  
+        self.area_contenido.addWidget(self.pagina_configuracion)  
+        
         
         self.layout_principal.addWidget(self.area_contenido)
