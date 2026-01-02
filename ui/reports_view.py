@@ -16,6 +16,7 @@ class PaginaReportes(QWidget):
         self.crear_resumen_contable() 
         self.crear_area_datos()
         self.crear_barra_acciones()
+        self.combo_filtro.currentTextChanged.connect(self.configurar_columnas_tabla)
 
     def crear_cabecera_filtros(self):
         contenedor = QFrame()
@@ -33,10 +34,10 @@ class PaginaReportes(QWidget):
         self.combo_filtro = QComboBox()
         self.combo_filtro.addItems([
             "Todos los Movimientos", 
-            "Ventas (Ingresos)", 
-            "Gastos Operativos", 
-            "Compras a Proveedores",
-            "Pagos de Turnos"
+            "Resumen de Ventas", 
+            "Detalle de Ventas", 
+            "Gastos Operativos",
+            "Registros de de Cajas"
         ])
         
         self.btn_consultar = QPushButton("Actualizar Libro")
@@ -84,15 +85,16 @@ class PaginaReportes(QWidget):
     def crear_area_datos(self):
         """El cuerpo del reporte: similar a las filas del cuaderno"""
         self.tabla = QTableWidget()
-        columnas = ["Fecha/Hora", "Tipo", "Descripción / Concepto", "Usuario", "Ingreso (+)", "Egreso (-)", "Estado"]
+        columnas = ["Fecha/Hora", "Tipo", "Descripción", "Usuario", "Ingreso (+)", "Egreso (-)", "Estado"]
         self.tabla.setColumnCount(len(columnas))
         self.tabla.setHorizontalHeaderLabels(columnas)
         
-        header = self.tabla.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.Stretch)
-        header.setSectionResizeMode(2, QHeaderView.ResizeToContents) # Descripción ancha
-        
+        encabezado = self.tabla.horizontalHeader()
+        encabezado.setSectionResizeMode(QHeaderView.Stretch)
+        encabezado.setMinimumSectionSize(150)
+        self.tabla.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.tabla.setSelectionBehavior(QAbstractItemView.SelectRows)
+        
         self.layout_principal.addWidget(self.tabla)
 
     def crear_barra_acciones(self):
@@ -108,3 +110,26 @@ class PaginaReportes(QWidget):
         layout.addWidget(self.btn_pdf)
         layout.addWidget(self.btn_excel)
         self.layout_principal.addLayout(layout)
+        
+    def configurar_columnas_tabla(self,tipo):
+        """Reconfigura las cabeceras según el tipo de reporte"""
+        self.tabla.setRowCount(0)
+
+        if tipo == "Resumen de Ventas":
+            columnas = ["Fecha/Hora", "N° Venta", "Vendedor", "Subtotal", "Desc.", "Total", "Estado"]
+        elif tipo == "Detalle de Ventas":
+            columnas = ["Fecha/Hora", "N° Venta","Vendedor", "Producto","Precio unit.", "Cant.","Subtotal", "Desc.", "Total"]
+        elif tipo == "Gastos Operativos":
+            columnas = ["Fecha/Hora", "Responsable", "Monto", "Categoria","Metodo de pago"]
+        elif tipo == "Registros de de Cajas":
+            columnas = ["Fecha/Hora apertura", "Fecha/Hora cierre", "Monto inicial", "Monto esperado","Monto declarado","Diferencia","Obervaciones"]
+        else:
+            columnas = ["Fecha/Hora", "Tipo", "Descripción", "Usuario", "Ingreso (+)", "Egreso (-)", "Estado"]
+        self.tabla.setColumnCount(len(columnas))
+        self.tabla.setHorizontalHeaderLabels(columnas)
+        encabezado = self.tabla.horizontalHeader()
+
+        if len(columnas) > 6:
+            encabezado.setMinimumSectionSize(170) 
+        else:
+            encabezado.setMinimumSectionSize(150) 
