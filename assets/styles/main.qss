@@ -503,3 +503,70 @@ QCheckBox#CheckExportar {
     font-weight: bold;
     color: #7f8c8d;
 }
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE VENTANA REPORTES
+   ========================================================== */
+
+/* Botones */
+QPushButton#BtnActualizarLibro {
+    background-color: #34495e;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 15px;
+}
+
+QPushButton#BtnActualizarLibro:hover {
+    background-color: #4c78a3;
+    color: white;
+}
+
+QPushButton#BtnExportarExcel {
+    background-color: #27ae60;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 15px;
+}
+
+QPushButton#BtnExportarExcel:hover {
+    background-color: #4ecc42;
+    color: white;
+}
+
+QPushButton#BtnExportarPDF {
+    background-color: #c0392b;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 15px;
+}
+
+QPushButton#BtnExportarPDF:hover {
+    background-color: #e9331f;
+    color: white;
+}
+
+
+QFrame#ContenedorFiltrosBusqueda {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Tarjetas Contables */
+QFrame#CardContable {
+    background-color: #f1f2f6;
+    border: 1px solid #dfe4ea;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QLabel#KpiTituloMini { font-size: 11px; font-weight: bold; color: #7f8c8d; }
+QLabel#textoVerde { font-size: 18px; font-weight: bold; color: #27ae60; }
+QLabel#textoRojo { font-size: 18px; font-weight: bold; color: #e74c3c; }
+QLabel#textoAzul { font-size: 18px; font-weight: bold; color: #2980b9; }
+
+

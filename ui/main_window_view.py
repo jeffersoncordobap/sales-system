@@ -6,6 +6,7 @@ from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QIcon
 from ui.sales_view import PaginaVentas
 from ui.inventory_view import PaginaInventario
+from ui.reports_view import PaginaReportes
 
 class VentanaPrincipal(QMainWindow):
     def __init__(self):
@@ -74,11 +75,13 @@ class VentanaPrincipal(QMainWindow):
         
         self.pagina_ventas = PaginaVentas()
         self.pagina_inventario = PaginaInventario()
+        self.pagina_reportes = PaginaReportes()
         self.pagina_dashboard = QLabel("Panel de Control (Dashboard) - Próximamente")
         self.pagina_dashboard.setAlignment(Qt.AlignCenter)
        
         self.area_contenido.addWidget(self.pagina_ventas)     
         self.area_contenido.addWidget(self.pagina_inventario) 
+        self.area_contenido.addWidget(self.pagina_reportes) 
         self.area_contenido.addWidget(self.pagina_dashboard)  
         
         self.layout_principal.addWidget(self.area_contenido)
