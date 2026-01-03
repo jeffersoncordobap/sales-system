@@ -5,11 +5,13 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, QDateTime
 
 class DialogoCierreCaja(QDialog):
-    def __init__(self, monto_esperado, parent=None):
+    def __init__(self, monto_efectivo_esperado,monto_tranferencia,monto_tarjeta, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Cierre de Caja / Arqueo")
-        self.setFixedSize(400, 550)
-        self.monto_esperado = monto_esperado
+        self.setFixedSize(400, 600)
+        self.monto_efectivo_esperado = monto_efectivo_esperado
+        self.monto_tranferencia = monto_tranferencia
+        self.monto_tarjeta = monto_tarjeta
         self.setObjectName("DialogoCierre")
         self.configurar_interfaz()
 
@@ -28,12 +30,20 @@ class DialogoCierreCaja(QDialog):
         self.lbl_fecha = QLabel(f"Fecha Cierre: {QDateTime.currentDateTime().toString('dd/MM/yyyy HH:mm')}")
         self.lbl_fecha.setObjectName("InfoCierre")
 
-        self.lbl_esperado = QLabel(f"Efectivo Esperado: ${self.monto_esperado:,.2f}")
-        self.lbl_esperado.setObjectName("MontoEsperado")
+        self.lbl_transferencia_esperado = QLabel(f"Transferencia: ${self.monto_tranferencia:,.2f}")
+        self.lbl_transferencia_esperado.setObjectName("MontoTransferencia")
+        
+        self.lbl_tarjeta_esperado = QLabel(f"Tarjeta: ${self.monto_tarjeta:,.2f}")
+        self.lbl_tarjeta_esperado.setObjectName("MontoTarjeta")
+
+        self.lbl_efectivo_esperado = QLabel(f"Efectivo Esperado: ${self.monto_efectivo_esperado:,.2f}")
+        self.lbl_efectivo_esperado.setObjectName("MontoEsperado")
 
         layout_cabecera.addWidget(lbl_titulo)
         layout_cabecera.addWidget(self.lbl_fecha)
-        layout_cabecera.addWidget(self.lbl_esperado)
+        layout_cabecera.addWidget(self.lbl_transferencia_esperado)
+        layout_cabecera.addWidget(self.lbl_tarjeta_esperado)
+        layout_cabecera.addWidget(self.lbl_efectivo_esperado)
         layout.addWidget(self.cabecera)
 
         layout_entrada = QVBoxLayout()
@@ -82,10 +92,9 @@ class DialogoCierreCaja(QDialog):
     def calcular_diferencia(self):
         try:
             declarado = float(self.entrada_declarado.text() or 0)
-            diferencia = declarado - self.monto_esperado
+            diferencia = declarado - self.monto_efectivo_esperado
             self.lbl_diferencia.setText(f"${diferencia:,.2f}")
             
-            # Feedback visual de la diferencia
             if diferencia < 0:
                 self.lbl_diferencia.setStyleSheet("color: #e74c3c; font-weight: bold;") # Rojo
             elif diferencia > 0:
@@ -103,7 +112,7 @@ class DialogoCierreCaja(QDialog):
 
     def obtener_datos_cierre(self):
         return {
-            "esperado": self.monto_esperado,
+            "esperado": self.monto_efectivo_esperado,
             "declarado": float(self.entrada_declarado.text() or 0),
             "observaciones": self.txt_observaciones.toPlainText()
         }

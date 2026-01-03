@@ -461,6 +461,22 @@ QLabel#MontoEsperado {
     margin-top: 5px;
 }
 
+QLabel#MontoTransferencia {
+    color: #3498db;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+
+QLabel#MontoTarjeta {
+    color: #3498db;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+
 /* Inputs */
 QLineEdit#EntradaDeclarado {
     font-size: 18px;

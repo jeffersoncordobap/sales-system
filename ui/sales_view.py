@@ -165,7 +165,7 @@ class PaginaVentas(QWidget):
     def cerrar_caja(self):
         """Método que abre el dialogo de cerrar caja.
         """   
-        dialogo = DialogoCierreCaja(1245000,self)
+        dialogo = DialogoCierreCaja(1245000,750000,50000,self)
         if dialogo.exec():
             print("caja cerrada con exito...") 
                 
