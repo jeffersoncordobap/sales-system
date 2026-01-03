@@ -27,14 +27,14 @@ class DialogoProducto(QDialog):
         self.ent_codigo.setToolTip("Si se deja vacío, el sistema asignará un código único basado en el ID.")
         
         self.ent_nombre = QLineEdit()
-        self.ent_nombre.setPlaceholderText("Ej: chancla capibara")
+        self.ent_nombre.setPlaceholderText("Ej: chancla capibara talla 32")
         
         self.ent_categoria = QComboBox()
         self.ent_categoria.addItems(["Chancla", "Babucha","Botas", "Calzado", "Accesorios"])
         self.ent_categoria.setEditable(True) 
 
         self.ent_talla = QLineEdit()
-        self.ent_talla.setPlaceholderText("Ej: 32, 40")
+        self.ent_talla.setPlaceholderText("Ej: 32")
 
         self.spn_costo = QDoubleSpinBox()
         self.spn_costo.setRange(0, 9999999)
