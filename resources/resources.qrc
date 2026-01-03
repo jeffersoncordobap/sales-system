@@ -3,6 +3,7 @@
     <qresource prefix="/icons">
         <file alias="login1.png">../assets/images/login1.png</file>
         <file alias="ventas.png">../assets/images/ventas.png</file>
+        <file alias="devoluciones.png">../assets/images/devoluciones.png</file>
         <file alias="inventario.png">../assets/images/inventario.png</file>
         <file alias="gastos.png">../assets/images/gastos.png</file>
         <file alias="reportes.png">../assets/images/reportes.png</file>

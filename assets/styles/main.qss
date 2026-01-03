@@ -615,3 +615,61 @@ QLabel#SubtituloGastos {
     font-weight: bold;
     color: #7f8c8d;
 }
+
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE VENTANA DEVOLUCIONES
+   ========================================================== */
+
+QFrame#CabeceraDevolucion {
+    background-color: #f1f2f6;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QLineEdit#EntradaBusquedaDev {
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ced4da;
+}
+
+QPushButton#BtnBuscarVenta {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+
+QPushButton#BtnBuscarVenta:hover {
+    background-color: #374d63;
+}
+
+/* Panel de Opciones */
+QFrame#PanelOpcionesDev {
+    background-color: #ffffff;
+    border: 1px solid #dfe4ea;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+QLabel#LabelTotalReembolso {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8e44ad; /* Morado */
+    margin: 15px 0px;
+}
+
+QPushButton#BtnProcesarDevolucion {
+    background-color: #8e44ad;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+QPushButton#BtnProcesarDevolucion:hover {
+    background-color: #7d3c98;
+}
+
+

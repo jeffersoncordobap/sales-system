@@ -8,6 +8,7 @@ from ui.sales_view import PaginaVentas
 from ui.inventory_view import PaginaInventario
 from ui.reports_view import PaginaReportes
 from ui.expenses_view import PaginaGastos
+from ui.returns_view import PaginaDevoluciones
 
 class VentanaPrincipal(QMainWindow):
     def __init__(self):
@@ -46,6 +47,9 @@ class VentanaPrincipal(QMainWindow):
         self.btn_gastos = QPushButton(" Gastos")
         self.btn_gastos.setIcon(QIcon(":/icons/gastos.png"))
         
+        self.btn_devoluciones = QPushButton(" Devoluciones")
+        self.btn_devoluciones.setIcon(QIcon(":/icons/devoluciones.png"))
+        
         self.btn_reportes = QPushButton(" Reportes")
         self.btn_reportes.setIcon(QIcon(":/icons/reportes.png"))
         
@@ -59,7 +63,7 @@ class VentanaPrincipal(QMainWindow):
         self.btn_configuracion.setIcon(QIcon(":/icons/configuracion.png"))
 
         self.lista_botones = [
-            self.btn_ventas, self.btn_gastos, self.btn_reportes, 
+            self.btn_ventas, self.btn_gastos, self.btn_devoluciones, self.btn_reportes, 
             self.btn_inventario, self.btn_dashboard, self.btn_configuracion
         ]
 
@@ -75,9 +79,11 @@ class VentanaPrincipal(QMainWindow):
         self.area_contenido = QStackedWidget()
         
         self.pagina_ventas = PaginaVentas()
-        self.pagina_inventario = PaginaInventario()
-        self.pagina_reportes = PaginaReportes()
         self.pagina_gastos = PaginaGastos()
+        self.pagina_devoluciones = PaginaDevoluciones()
+        self.pagina_reportes = PaginaReportes()
+        self.pagina_inventario = PaginaInventario()
+        
         self.pagina_dashboard = QLabel("Panel de Control (Dashboard) - Próximamente")
         self.pagina_dashboard.setAlignment(Qt.AlignCenter)
         self.pagina_configuracion = QLabel("Panel de Control (Configuración) - Próximamente")
@@ -85,8 +91,10 @@ class VentanaPrincipal(QMainWindow):
         
         self.area_contenido.addWidget(self.pagina_ventas)   
         self.area_contenido.addWidget(self.pagina_gastos)   
-        self.area_contenido.addWidget(self.pagina_inventario) 
+        self.area_contenido.addWidget(self.pagina_devoluciones)
         self.area_contenido.addWidget(self.pagina_reportes) 
+        self.area_contenido.addWidget(self.pagina_inventario) 
+        
         self.area_contenido.addWidget(self.pagina_dashboard)  
         self.area_contenido.addWidget(self.pagina_configuracion)  
         
