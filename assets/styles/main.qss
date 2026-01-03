@@ -432,15 +432,19 @@ QPushButton#BtnConfirmarApertura:pressed {
    ESTILOS ESPECÍFICOS DE CIERRE DE CAJA
    ========================================================== */
 
+/* ==========================================================
+   DIÁLOGO DE CIERRE - ESTILO INTEGRADO
+   ========================================================== */
+
 QDialog#DialogoCierre {
     background-color: #ffffff;
 }
 
-/* Cabecera */
+/* 1. Cabecera Oscura */
 QFrame#CabeceraCierre {
     background-color: #2c3e50;
     border-radius: 8px;
-    padding: 10px;
+    padding: 12px;
 }
 
 QLabel#TituloCierre {
@@ -454,35 +458,45 @@ QLabel#InfoCierre {
     font-size: 11px;
 }
 
-QLabel#MontoEsperado {
-    color: #3498db;
-    font-size: 20px;
+/* 2. Bloque Digital (Tarjetas y Transferencias) */
+QFrame#FrameDigital {
+    background-color: rgba(52, 152, 219, 0.1); /* Azul muy transparente */
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0px;
+}
+
+/* Estilo para los textos de Tarjeta/Transf dentro del banner */
+QFrame#FrameDigital QLabel {
+    color: #ecf0f1;
+    font-size: 12px;
+}
+
+/* 3. Valores Principales (Efectivo y Total) */
+QLabel#MontoEsperadoPrincipal {
+    color: #5dade2; /* Un azul más claro para que resalte en el fondo oscuro */
+    font-size: 19px;
     font-weight: bold;
+}
+
+QLabel#MontoTotalGeneral {
+    color: #2ecc71; /* Verde esmeralda para el TOTAL */
+    font-size: 21px;
+    font-weight: bold;
+    border-top: 1px solid #3e4f5f;
+    padding-top: 8px;
     margin-top: 5px;
 }
 
-QLabel#MontoTransferencia {
-    color: #3498db;
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-
-QLabel#MontoTarjeta {
-    color: #3498db;
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-
-/* Inputs */
+/* 4. Sección de Arqueo (Donde el cajero escribe) */
 QLineEdit#EntradaDeclarado {
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: bold;
     padding: 10px;
-    border: 2px solid #dfe4ea;
+    border: 2px solid #3498db; /* Borde azul para indicar que es el foco */
     border-radius: 6px;
+    color: #2c3e50;
 }
 
 QTextEdit#TxtObservaciones {
@@ -491,18 +505,19 @@ QTextEdit#TxtObservaciones {
     background-color: #f9f9f9;
 }
 
-/* Frame de Diferencia */
+/* 5. Diferencia */
 QFrame#FrameDiferencia {
     background-color: #f1f2f6;
     border-radius: 6px;
-    padding: 5px;
+    padding: 10px;
 }
 
 QLabel#LabelDiferencia {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-/* Botones */
+/* 6. Botones y Checkbox */
 QPushButton#BtnFinalizarCierre {
     background-color: #2c3e50;
     color: white;
@@ -519,6 +534,7 @@ QCheckBox#CheckExportar {
     font-weight: bold;
     color: #7f8c8d;
 }
+
 
 /* ==========================================================
    ESTILOS ESPECÍFICOS DE VENTANA REPORTES
