@@ -4,11 +4,13 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import QColor
 from PySide6.QtCore import Qt
+from ui.add_product_view import DialogoProducto
 
 class PaginaInventario(QWidget):
     def __init__(self):
         super().__init__()
         self.configurar_interfaz()
+        self.btn_adicionar_producto.clicked.connect(self.abrir_dialogo_adicionar_producto)
 
     def configurar_interfaz(self):
         """Configura la estructura visual de la página de inventario."""
@@ -20,17 +22,17 @@ class PaginaInventario(QWidget):
         self.lbl_titulo.setStyleSheet("font-size: 20px; font-weight: bold; color: #2c3e50;")
         
         self.btn_actualizar = QPushButton("Actualizar Stock")
-        self.btn_nuevo = QPushButton("Nuevo Producto")
+        self.btn_adicionar_producto = QPushButton("Nuevo Producto")
         self.btn_exportar = QPushButton("Exportar CSV")
 
         self.btn_actualizar.setObjectName("btnActualizar")
-        self.btn_nuevo.setObjectName("btnNuevo")
+        self.btn_adicionar_producto.setObjectName("btnNuevo")
         self.btn_exportar.setObjectName("btnExportar")
 
         layout_encabezado.addWidget(self.lbl_titulo)
         layout_encabezado.addStretch()
         layout_encabezado.addWidget(self.btn_actualizar)
-        layout_encabezado.addWidget(self.btn_nuevo)
+        layout_encabezado.addWidget(self.btn_adicionar_producto)
         layout_encabezado.addWidget(self.btn_exportar)
         layout_principal.addLayout(layout_encabezado)
 
@@ -98,3 +100,26 @@ class PaginaInventario(QWidget):
                 if item:
                     item.setBackground(color_fondo)
                     item.setForeground(QColor("#444444"))
+    
+    
+    def abrir_dialogo_adicionar_producto (self):
+        dialogo = DialogoProducto(self)
+        if dialogo.exec():
+            print("Producto agregado con exito...") 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

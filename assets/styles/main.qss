@@ -770,3 +770,41 @@ QPushButton#BtnBuscarVenta:pressed {
     background-color: #1a252f; 
     padding-top: 10px;        
 }
+
+
+
+/* ==========================================================
+   ESTILOS ESPECÍFICOS DE DIALOGO AGREGAR PRODUCTO
+   ========================================================== */
+
+QDialog#DialogoProducto {
+    background-color: #ffffff;
+}
+
+QLineEdit, QDoubleSpinBox, QSpinBox, QComboBox {
+    padding: 6px;
+    border: 1px solid #dcdde1;
+    border-radius: 4px;
+    background-color: #f5f6fa;
+}
+
+QLineEdit:focus {
+    border: 1px solid #3498db;
+    background-color: #ffffff;
+}
+
+QLabel {
+    font-weight: bold;
+    color: #2f3640;
+}
+
+QPushButton#BtnGuardarProducto {
+    background-color: #27ae60; /* Verde para indicar creación */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+QPushButton#BtnGuardarProducto:hover {
+    background-color: #2ecc71;
+}
