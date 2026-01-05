@@ -1,6 +1,8 @@
 import sys
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtCore import QFile, QTextStream
+
+from database.connection import DatabaseConnection
 from controllers.login_controller import ControladorLogin
 
 def obtener_estilo():
@@ -11,14 +13,24 @@ def obtener_estilo():
         return flujo.readAll()
     return ""
 
-if __name__ == "__main__":
+def main():
+    db = DatabaseConnection()
+    try:
+        db.inicializar_db()
+    except Exception as e:
+        print(f"Error crítico al iniciar la base de datos: {e}")
+        return 
+
     app = QApplication(sys.argv)
-    
     estilo = obtener_estilo()
-    app.setStyleSheet(estilo)
+    if estilo:
+        app.setStyleSheet(estilo)
 
     controlador = ControladorLogin()
     controlador.mostrar_login()
-    
+
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()
     
