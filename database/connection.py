@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-class DatabaseConnection:
+class ConexionDB:
     def __init__(self):
         self.db_path = os.path.join("database", "store.db")
         self.schema_path = os.path.join("database", "schema.sql")
