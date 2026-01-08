@@ -66,8 +66,8 @@ class RepositorioProducto:
             e: Descripción del error que puede ocurrir.
 
         Returns:
-            producto: Un objeto de la clase Producto o
-            None si el nombre del producto no existe.  
+            producto: Un objeto de la clase Producto si el producto existe,
+            None en caso contrario.  
         """        
         cursor = self.conexion_bd.cursor()
         consulta = "SELECT * FROM productos WHERE nombre = ?"
@@ -84,6 +84,23 @@ class RepositorioProducto:
             
             
     def adicionar_producto(self, producto: Producto):
+        """Métdo que adiciona un nuevo producto a la base de datos
+
+        Args:
+            producto (Producto): obejeto de la clase producto
+
+        Raises:
+            ValueError: Error por codigo de barras duplicado
+            e: Error al adicionar producto
+
+        Returns:
+            Bool: True si el producto fue agregado exitosamente
+        """        
+        producto_existente = self.obtener_producto_por_codigo_de_barras(producto.codigo_barras)
+        if producto_existente:
+            mensaje = (f"No se puede registrar: El código '{producto.codigo_barras}'\n "
+                       f"ya existe para '{producto_existente.nombre}'.")
+            raise ValueError(mensaje)
         cursor = self.conexion_bd.cursor()
         consulta = """INSERT INTO productos 
                       (codigo_barras,
@@ -116,10 +133,23 @@ class RepositorioProducto:
             
 
     def actualizar_stock_producto(self, codigo_barras, nuevo_stock):
+        """Método que actualiza el stock actual de un producto
+        Args:
+            codigo_barras (str): El código de barras del producto a actualizar.
+            nuevo_stock (int): El nuevo valor de stock actual.
+        Raises:
+            Exception: Si no se encuentra el producto o hay un error en la actualización.
+        Returns:
+            bool: True si la actualización fue exitosa.
+        """
         cursor = self.conexion_bd.cursor()
         consulta = "UPDATE productos SET stock_actual = ? WHERE codigo_barras = ?"
         try:
             cursor.execute(consulta, (nuevo_stock, codigo_barras))
+            if cursor.rowcount == 0:
+                mensaje = (f"Error: No se encontró ningún producto \n"
+                           f"con el código '{codigo_barras}'.")
+                raise Exception(mensaje)
             self.conexion_bd.commit()
             return True
         except Exception as e:
@@ -128,50 +158,106 @@ class RepositorioProducto:
         finally:
             cursor.close()
             
+    def actualizar_producto(self, producto: Producto):
+        """Método que actualiza los datos de un producto existente
+
+        Args:
+            producto (Producto): Objeto de la clase Producto con los datos actualizados.
+
+        Raises:
+            e: Descripción del error que puede ocurrir.
+
+        Returns:
+            bool: True si la actualización fue exitosa.
+        """        
+        cursor = self.conexion_bd.cursor()
+        consulta = """UPDATE productos 
+                      SET codigo_barras = ?,
+                          nombre = ?, 
+                          categoria = ?, 
+                          talla = ?, 
+                          costo_compra = ?, 
+                          precio_venta = ?, 
+                          stock_actual = ?, 
+                          stock_minimo = ?, 
+                          estado_gestion = ? 
+                      WHERE id_producto = ?"""
+        try:
+            cursor.execute(consulta, (producto.codigo_barras,
+                                      producto.nombre,
+                                      producto.categoria,
+                                      producto.talla,
+                                      producto.costo_compra,
+                                      producto.precio_venta,
+                                      producto.stock_actual,
+                                      producto.stock_minimo,
+                                      producto.estado_gestion,
+                                      producto.id_producto))
+            
+            if cursor.rowcount == 0:
+                mensaje = (f"Error: No se encontró ningún producto \n"
+                           f"con el ID '{producto.id_producto}'.")
+                raise Exception(mensaje)
+            
+            self.conexion_bd.commit()
+            return True
+        except Exception as e:
+            self.conexion_bd.rollback()
+            raise e
+        finally:
+            cursor.close()
 
 
+    def listar_productos(self):
+        """Método que lista todos los productos en la base de datos
 
+        Raises:
+            e: Descripción del error que puede ocurrir.
 
+        Returns:
+            lista_productos: Una lista de objetos de la clase Producto.
+        """        
+        cursor = self.conexion_bd.cursor()
+        consulta = "SELECT * FROM productos"
+        lista_productos = []
+        try:
+            cursor.execute(consulta)
+            filas_productos = cursor.fetchall()
+            for atributos_producto in filas_productos:
+                producto = self.mapear_producto(atributos_producto)
+                lista_productos.append(producto)
+            return lista_productos
+        except Exception as e:
+            raise e
+        finally:
+            cursor.close()
 
+    def cambiar_estado_gestion_producto(self, codigo_barras, nuevo_estado):
+        """Método que cambia el estado de gestión de un producto
 
+        Args:
+            codigo_barras (str): El código de barras del producto.
+            nuevo_estado (str): El nuevo estado de gestión ("ACTIVO" o "INACTIVO").
 
+        Raises:
+            e: Descripción del error que puede ocurrir.
 
-
-
-
-
-
-
-
-# class ProductRepository:
-#     def __init__(self, db_connection):
-#         self.db_connection = db_connection
-
-#     def get_product_by_id(self, product_id):
-#         cursor = self.db_connection.cursor()
-#         query = "SELECT * FROM products WHERE id = %s"
-#         cursor.execute(query, (product_id,))                                                                                
-#         product = cursor.fetchone()
-#         cursor.close()
-#         return product
-
-#     def add_product(self, name, price, stock):
-#         cursor = self.db_connection.cursor()
-#         query = "INSERT INTO products (name, price, stock) VALUES (%s, %s, %s)"
-#         cursor.execute(query, (name, price, stock))
-#         self.db_connection.commit()
-#         cursor.close()
-
-#     def update_product_stock(self, product_id, new_stock):
-#         cursor = self.db_connection.cursor()
-#         query = "UPDATE products SET stock = %s WHERE id = %s"
-#         cursor.execute(query, (new_stock, product_id))
-#         self.db_connection.commit()
-#         cursor.close()
-
-#     def delete_product(self, product_id):
-#         cursor = self.db_connection.cursor()
-#         query = "DELETE FROM products WHERE id = %s"
-#         cursor.execute(query, (product_id,))
-#         self.db_connection.commit()
-#         cursor.close()
+        Returns:
+            bool: True si la actualización fue exitosa.
+        """        
+        cursor = self.conexion_bd.cursor()
+        consulta = "UPDATE productos SET estado_gestion = ? WHERE codigo_barras = ?"
+        try:
+            cursor.execute(consulta, (nuevo_estado, codigo_barras))
+            if cursor.rowcount == 0:
+                mensaje = (f"Error: No se encontró ningún producto \n"
+                           f"con el código '{codigo_barras}'.")
+                raise Exception(mensaje)
+            self.conexion_bd.commit()
+            return True
+        except Exception as e:
+            self.conexion_bd.rollback()
+            raise e
+        finally:
+            cursor.close()
+            

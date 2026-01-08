@@ -2,7 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtCore import QFile, QTextStream
 
-from database.connection import DatabaseConnection
+from database.connection import ConexionDB
 from controllers.login_controller import ControladorLogin
 
 def obtener_estilo():
@@ -14,7 +14,7 @@ def obtener_estilo():
     return ""
 
 def main():
-    db = DatabaseConnection()
+    db = ConexionDB()
     try:
         db.inicializar_db()
     except Exception as e:
