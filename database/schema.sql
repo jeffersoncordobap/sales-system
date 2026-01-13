@@ -13,15 +13,15 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 CREATE TABLE IF NOT EXISTS productos (
     id_producto INTEGER PRIMARY KEY AUTOINCREMENT,
-    codigo_barras TEXT UNIQUE,
+    codigo_barras TEXT UNIQUE DEFAULT NULL,
     nombre TEXT NOT NULL,
     categoria TEXT,
     talla TEXT,
-    costo_compra REAL DEFAULT 0.0,
+    color TEXT,
     precio_venta REAL DEFAULT 0.0,
     stock_actual INTEGER DEFAULT 0,
-    stock_minimo INTEGER DEFAULT 1,
-    estado_gestion TEXT DEFAULT 'ACTIVO'
+    estado_gestion TEXT DEFAULT 'ACTIVO',
+    UNIQUE(nombre, categoria, talla, color)
 );
 
 CREATE TABLE IF NOT EXISTS registro_caja (
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS registro_caja (
     monto_esperado_tarjeta REAL DEFAULT 0.0,
     monto_esperado_efectivo REAL DEFAULT 0.0,
     total_ventas_sistema REAL DEFAULT 0.0,
-    monto_final_declarado REAL,
+    monto_final_efectivo_declarado REAL,
     diferencia REAL,
     observaciones_cierre TEXT,
     FOREIGN KEY (fk_vendedor_abre) REFERENCES usuarios(id_usuario)
@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS items_venta (
     fk_venta INTEGER,
     fk_producto INTEGER,
     cantidad_vendida INTEGER NOT NULL,
-    costo_unitario_al_momento_venta REAL,
     precio_base REAL,
     descuento_aplicado REAL DEFAULT 0.0,
     precio_final REAL,

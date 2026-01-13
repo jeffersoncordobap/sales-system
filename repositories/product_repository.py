@@ -21,11 +21,10 @@ class RepositorioProducto:
             nombre=atributos_producto[2],
             categoria=atributos_producto[3],
             talla=atributos_producto[4],
-            costo_compra=atributos_producto[5],
+            color=atributos_producto[5],
             precio_venta=atributos_producto[6],
             stock_actual=atributos_producto[7],
-            stock_minimo=atributos_producto[8],
-            estado_gestion=atributos_producto[9],
+            estado_gestion=atributos_producto[8],
         )
         return producto
     
@@ -54,36 +53,62 @@ class RepositorioProducto:
             raise e
         finally:
             cursor.close()
-    
-    def obtener_producto_por_nombre(self, nombre_producto):
-        """Método que busca un producto por nombre y lo devuleve 
-        si lo encuentra en caso contrario devulve None 
 
-        Args:
-            nombre_producto (str): El nombre del producto a buscar.
-
-        Raises:
-            e: Descripción del error que puede ocurrir.
-
-        Returns:
-            producto: Un objeto de la clase Producto si el producto existe,
-            None en caso contrario.  
-        """        
+    def producto_existe(self, producto: Producto):
         cursor = self.conexion_bd.cursor()
-        consulta = "SELECT * FROM productos WHERE nombre = ?"
+        consulta = "SELECT * FROM productos WHERE nombre = ? AND talla = ? AND color = ?"
         try:
-            cursor.execute(consulta, (nombre_producto,))
+            cursor.execute(consulta, (producto.nombre, producto.talla, producto.color))
             atributos_producto = cursor.fetchone()
             if atributos_producto:
-                return self.mapear_producto(atributos_producto)
-            return None
+                return True
+            return False
         except Exception as e:
             raise e
         finally:
             cursor.close()
+
+    def buscar_productos_por_filtro(self, palabras):
+        """Método que devuleve una lista de productos los cuales algunos
+        de sus atributos coinciden con la lista de palabras enviadas.
+
+        Args:
+            palabras (list): Una lista de palabras para buscar productos.
+
+        Returns:
+            list: Una lista de objetos Producto que coinciden con los criterios de búsqueda.
+        """        
+        cursor = self.conexion_bd.cursor()
+
+        consulta = """
+            SELECT *
+            FROM productos
+            WHERE estado_gestion = 1
+        """
+
+        parametros = []
+
+        for palabra in palabras:
+            consulta += """
+                AND (
+                    nombre LIKE ?
+                    OR categoria LIKE ?
+                    OR color LIKE ?
+                    OR CAST(talla AS TEXT) LIKE ?
+                )
+            """
+            like = f"%{palabra}%"
+            parametros.extend([like, like, like, like])
+
+        try:
+            cursor.execute(consulta, parametros)
+            filas = cursor.fetchall()
+            return [self.mapear_producto(fila) for fila in filas]
+        finally:
+            cursor.close()
+
             
-            
-    def adicionar_producto(self, producto: Producto):
+    def agregar_producto(self, producto: Producto):
         """Métdo que adiciona un nuevo producto a la base de datos
 
         Args:
@@ -96,10 +121,10 @@ class RepositorioProducto:
         Returns:
             Bool: True si el producto fue agregado exitosamente
         """        
-        producto_existente = self.obtener_producto_por_codigo_de_barras(producto.codigo_barras)
-        if producto_existente:
-            mensaje = (f"No se puede registrar: El código '{producto.codigo_barras}'\n "
-                       f"ya existe para '{producto_existente.nombre}'.")
+        if self.producto_existe(producto):
+            mensaje = (f"No se puede registrar: El producto: '{producto.nombre},"
+                       f"'{producto.talla}','{producto.color}'\n "
+                       f"ya existe en el inventario.")
             raise ValueError(mensaje)
         cursor = self.conexion_bd.cursor()
         consulta = """INSERT INTO productos 
@@ -107,21 +132,19 @@ class RepositorioProducto:
                       nombre,
                       categoria,
                       talla,
-                      costo_compra,
+                      color,
                       precio_venta,
                       stock_actual,
-                      stock_minimo,
                       estado_gestion) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
         try:
             cursor.execute(consulta, (producto.codigo_barras,
                                       producto.nombre,
                                       producto.categoria,
                                       producto.talla,
-                                      producto.costo_compra,
+                                      producto.color,
                                       producto.precio_venta,
                                       producto.stock_actual,
-                                      producto.stock_minimo,
                                       producto.estado_gestion))
             self.conexion_bd.commit()     
             return True     
@@ -176,10 +199,9 @@ class RepositorioProducto:
                           nombre = ?, 
                           categoria = ?, 
                           talla = ?, 
-                          costo_compra = ?, 
+                          color = ?, 
                           precio_venta = ?, 
                           stock_actual = ?, 
-                          stock_minimo = ?, 
                           estado_gestion = ? 
                       WHERE id_producto = ?"""
         try:
@@ -187,10 +209,9 @@ class RepositorioProducto:
                                       producto.nombre,
                                       producto.categoria,
                                       producto.talla,
-                                      producto.costo_compra,
+                                      producto.color,
                                       producto.precio_venta,
                                       producto.stock_actual,
-                                      producto.stock_minimo,
                                       producto.estado_gestion,
                                       producto.id_producto))
             

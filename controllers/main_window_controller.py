@@ -1,8 +1,18 @@
 from ui.main_window_view import VentanaPrincipal
+from controllers.inventory_controller import ControladorInventario
+
+
 class ControladorVentanaPrincipal:
-    def __init__(self):
+    def __init__(self,servicios):
+        self.servicios = servicios
         self.vista = VentanaPrincipal()
         self._conectar_navegacion()
+        self.vista.btn_inventario.clicked.connect(self.inicializar_inventario)
+        
+        self.controlador_inventario = ControladorInventario(
+                self.vista.pagina_inventario, 
+                self.servicios['inventario']
+            )
 
     def _conectar_navegacion(self):
         v = self.vista
@@ -16,3 +26,6 @@ class ControladorVentanaPrincipal:
 
     def mostrar(self):
         self.vista.show()
+        
+    def inicializar_inventario(self):
+        self.controlador_inventario.actualizar_inventario()
