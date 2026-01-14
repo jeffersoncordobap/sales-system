@@ -395,40 +395,39 @@ QPushButton#BtnCancelar {
 }
 
 /* ==========================================================
-   ESTILOS ESPECÍFICOS DE APERTURA DE CAJA
+   STYLES OPEN BOX
    ========================================================== */
-QDialog#DialogoApertura {
+QDialog#OpenBoxDialog {
     background-color: #ffffff;
 }
 
-/* Cabecera Azul Oscura */
-QFrame#CabeceraApertura {
+QFrame#header_open_box {
     background-color: #34495e;
     border-radius: 10px;
     padding: 10px;
 }
 
-QLabel#TituloApertura {
+QLabel#lbl_title_open_box {
     color: #ffffff;
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-QLabel#InfoApertura {
+QLabel#lbl_opening_information {
     color: #ecf0f1;
     font-size: 12px;
     font-weight: bold;
 }
 
-/* Sección de Entrada */
-QLabel#EtiquetaInstruccion {
+
+QLabel#lbl_instruction_open_box {
     font-weight: bold; 
     color: #2c3e50;
     font-size: 18px;
 }
 
-QLineEdit#EntradaMontoApertura {
+QLineEdit#input_initial_amount {
     font-size: 20px;
     border: 2px solid #bdc3c7;
     border-radius: 5px;
@@ -436,13 +435,12 @@ QLineEdit#EntradaMontoApertura {
     background-color: #f9f9f9;
 }
 
-QLineEdit#EntradaMontoApertura:focus {
+QLineEdit#input_initial_amount:focus {
     border-color: #3498db;
     background-color: #ffffff;
 }
 
-/* Botón de Éxito */
-QPushButton#BtnConfirmarApertura {
+QPushButton#btn_confirm_open_box {
     background-color: #27ae60;
     color: white;
     font-size: 16px;
@@ -451,11 +449,11 @@ QPushButton#BtnConfirmarApertura {
     padding: 12px;
 }
 
-QPushButton#BtnConfirmarApertura:hover {
+QPushButton#btn_confirm_open_box:hover {
     background-color: #2ecc71;
 }
 
-QPushButton#BtnConfirmarApertura:pressed {
+QPushButton#btn_confirm_open_box:pressed {
     background-color: #1e8449;
 }
 
