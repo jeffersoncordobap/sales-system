@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon
 
 
-class DialogoPago(QDialog):
+class ConfirmPaymentDialog(QDialog):
     def __init__(self, total_a_pagar, parent=None):
         super().__init__(parent)
         self.total_total = total_a_pagar

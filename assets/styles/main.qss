@@ -187,44 +187,44 @@ QPushButton#btn_sidebar:hover {
 
 
 /* ==========================================================
-   ESTILOS ESPECÍFICOS DE VENTAS
+   STYLES SALES
    ========================================================== */
-QPushButton#btnAbrirCaja {
+QPushButton#btn_open_box {
     background-color: transparent;
     color: #1f8ac9;
     border: 1px solid #1f8ac9;
 }
 
-QPushButton#btnAbrirCaja:hover {
+QPushButton#btn_open_box:hover {
     background-color: #1dd2f1;
     color: white;
 }
 
-QPushButton#btnCerrarCaja {
+QPushButton#btn_close_box {
     background-color: transparent;
     color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-QPushButton#btnCerrarCaja:hover {
+QPushButton#btn_close_box:hover {
     background-color: #e74c3c;
     color: white;
 }
 
 
-QPushButton#btnAgregarCarrito {
+QPushButton#btn_add_to_cart{
     background-color: #3498db;
     color: white;
     font-weight: bold;
 }
 
-QPushButton#btnAgregarCarrito:hover {
+QPushButton#btn_add_to_cart:hover {
     background-color: #1dd2f1;
     color: white;
 }
 
 
-QPushButton#btnConfirmarPago {
+QPushButton#btn_pay {
     background-color: #27ae60;
     color: white;
     font-size: 18px;
@@ -233,23 +233,23 @@ QPushButton#btnConfirmarPago {
 }
 
 
-QPushButton#btnConfirmarPago:hover {
+QPushButton#btn_pay:hover {
     background-color: #13d664;
     color: white;
 }
 
-QPushButton#btnVaciarCarrito {
+QPushButton#btn_clean {
     background-color: transparent;
     color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-QPushButton#btnVaciarCarrito:hover {
+QPushButton#btn_clean:hover {
     background-color: #e74c3c;
     color: white;
 }
 
-QComboBox#ComboBuscarProducto{
+QComboBox#combo_search_product{
     border: 2px solid #bdc3c7;
     border-radius: 5px;
     padding: 8px;
@@ -257,7 +257,7 @@ QComboBox#ComboBuscarProducto{
     background-color: #fdfdfd;
 }
 
-QComboBox#ComboDescuento{
+QComboBox#combo_discount_type{
     border: 2px solid #bdc3c7;
     border-radius: 5px;
     padding: 2px;

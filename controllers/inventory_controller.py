@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QMessageBox
-from ui.add_product_view import ProductDialog
+from ui.add_product_view import AddProductDialog
 
 from PySide6.QtWidgets import QPushButton, QTableWidgetItem
 from PySide6.QtCore import Qt
@@ -9,7 +9,7 @@ class InventoryController:
     def __init__(self,inventory_view,inventory_service):
         self.inventory_view = inventory_view
         self.inventory_service = inventory_service
-        self.dialogo_agregar_producto = ProductDialog(self.inventory_view)
+        self.dialogo_agregar_producto = AddProductDialog(self.inventory_view)
         
         self.inventory_view.btn_add_product.clicked.connect(self.open_dialog_add_product)
         self.dialogo_agregar_producto.btn_save.clicked.connect(self.add_product)

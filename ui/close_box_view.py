@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QDateTime
 
-class DialogoCierreCaja(QDialog):
+class CloseBoxDialog(QDialog):
     def __init__(self, monto_efectivo_esperado, monto_tranferencia, monto_tarjeta, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Cierre de Caja / Arqueo")

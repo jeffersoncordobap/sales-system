@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QDateTime
 
-class DialogoAperturaCaja(QDialog):
+class OpenBoxDialog(QDialog):
     def __init__(self, nombre_cajero, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Apertura de Turno")
