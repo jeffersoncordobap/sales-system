@@ -1,20 +1,20 @@
-class ServicioInventario:
-    def __init__(self,repositorio_producto):
-        self.repositorio_producto = repositorio_producto
+class InventoryService:
+    def __init__(self,product_repository):
+        self.product_repository = product_repository
 
-    def agregar_producto(self, producto):
-        return self.repositorio_producto.agregar_producto(producto)
+    def add_product(self, producto):
+        return self.product_repository.add_product(producto)
           
-        
-    def obtener_todos_productos(self):
+
+    def get_all_products(self):
         try:
-            return self.repositorio_producto.listar_productos()
+            return self.product_repository.get_all_products()
         except Exception as e:
             raise e
-    
-    def editar_producto(self, producto):
+
+    def edit_product(self, producto):
         try:
-            self.repositorio_producto.actualizar_producto(producto)
+            self.product_repository.edit_product(producto)
             return True
         except Exception as e:
             raise e

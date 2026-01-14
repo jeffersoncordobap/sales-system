@@ -9,7 +9,7 @@ from ui.open_box_view import DialogoAperturaCaja
 from ui.close_box_view import DialogoCierreCaja
 
 
-class PaginaVentas(QWidget):
+class SalesView(QWidget):
     def __init__(self):
         super().__init__()
         self.layout_principal = QVBoxLayout(self)

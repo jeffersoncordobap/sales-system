@@ -1,88 +1,88 @@
 from PySide6.QtWidgets import QMessageBox
-from ui.add_product_view import DialogoProducto
+from ui.add_product_view import ProductDialog
 
 from PySide6.QtWidgets import QPushButton, QTableWidgetItem
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
-class ControladorInventario:
-    def __init__(self,pagina_inventario,servicio_inventario):
-        self.pagina_inventario = pagina_inventario
-        self.servicio_inventario = servicio_inventario
-        self.dialogo_agregar_producto = DialogoProducto(self.pagina_inventario)
+class InventoryController:
+    def __init__(self,inventory_view,inventory_service):
+        self.inventory_view = inventory_view
+        self.inventory_service = inventory_service
+        self.dialogo_agregar_producto = ProductDialog(self.inventory_view)
         
-        self.pagina_inventario.btn_adicionar_producto.clicked.connect(self.abrir_dialogo_adicionar_producto)
-        self.dialogo_agregar_producto.btn_guardar.clicked.connect(self.agregar_producto)
-        self.pagina_inventario.btn_actualizar.clicked.connect(self.actualizar_inventario)
+        self.inventory_view.btn_add_product.clicked.connect(self.open_dialog_add_product)
+        self.dialogo_agregar_producto.btn_save.clicked.connect(self.add_product)
+        self.inventory_view.btn_update.clicked.connect(self.update_inventory)
 
 
-    def abrir_dialogo_adicionar_producto (self):
+    def open_dialog_add_product (self):
         dialogo = self.dialogo_agregar_producto
         if dialogo.exec():
             print("Producto agregado con exito...")
 
-    def agregar_producto(self):
-        producto = self.dialogo_agregar_producto.obtener_producto()
-        if not producto.nombre:
-            QMessageBox.warning(self.pagina_inventario, "Error de Validación", "El nombre del producto es obligatorio.")
+    def add_product(self):
+        product = self.dialogo_agregar_producto.get_product()
+        if not product.product_name:
+            QMessageBox.warning(self.inventory_view, "Error de Validación", "El nombre del product es obligatorio.")
             return None
         
-        if not producto.talla:
-            QMessageBox.warning(self.pagina_inventario, "Error de Validación", "La talla del producto es obligatoria.")
+        if not product.product_size:
+            QMessageBox.warning(self.inventory_view, "Error de Validación", "La size del product es obligatoria.")
             return None
         
-        if not producto.color:
-            QMessageBox.warning(self.pagina_inventario, "Error de Validación", "El color del producto es obligatorio.")
+        if not product.color:
+            QMessageBox.warning(self.inventory_view, "Error de Validación", "El color del product es obligatorio.")
+            return None
+
+        if product.price <= 0:
+            QMessageBox.warning(self.inventory_view, "Error de Validación", "El precio de venta debe ser mayor que cero.")
             return None
         
-        if producto.precio_venta <= 0:
-            QMessageBox.warning(self.pagina_inventario, "Error de Validación", "El precio de venta debe ser mayor que cero.")
-            return None
-        
-        if producto.stock_actual < 0:
-            QMessageBox.warning(self.pagina_inventario, "Error de Validación", "El stock inicial no puede ser negativo.")
+        if product.stock < 0:
+            QMessageBox.warning(self.inventory_view, "Error de Validación", "El stock inicial no puede ser negativo.")
             return None
         
         try:
-            if self.servicio_inventario.agregar_producto(producto):
-                QMessageBox.information(self.pagina_inventario, "Éxito", "Producto agregado exitosamente.")
-                return producto
+            if self.inventory_service.add_product(product):
+                QMessageBox.information(self.inventory_view, "Éxito", "Producto agregado exitosamente.")
+                return product
         except Exception as e:
-            QMessageBox.critical(self.pagina_inventario, "Error", f"No se pudo agregar el producto: {str(e)}")
+            QMessageBox.critical(self.inventory_view, "Error", f"No se pudo agregar el product: {str(e)}")
             return None
     
-    def actualizar_inventario(self):
-        productos_en_inventario = self.servicio_inventario.obtener_todos_productos()
+    def update_inventory(self):
+        products_in_inventory = self.inventory_service.get_all_products()
         """Llena la tabla con los productos activos en el inventario
         y aplica colores según stock."""
 
-        self.pagina_inventario.tabla.setRowCount(len(productos_en_inventario))
+        self.inventory_view.table.setRowCount(len(products_in_inventory))
 
-        for i,producto in enumerate(productos_en_inventario):
-            self.pagina_inventario.tabla.setItem(i, 0, QTableWidgetItem(producto.nombre))
-            self.pagina_inventario.tabla.setItem(i, 1, QTableWidgetItem(producto.categoria))
-            self.pagina_inventario.tabla.setItem(i, 2, QTableWidgetItem(producto.talla))
-            self.pagina_inventario.tabla.setItem(i, 3, QTableWidgetItem(producto.color))
-            self.pagina_inventario.tabla.setItem(i, 4, QTableWidgetItem(str(producto.precio_venta)))
-            self.pagina_inventario.tabla.setItem(i, 5, QTableWidgetItem(str(producto.stock_actual)))
+        for i,product in enumerate(products_in_inventory):
+            self.inventory_view.table.setItem(i, 0, QTableWidgetItem(product.product_name))
+            self.inventory_view.table.setItem(i, 1, QTableWidgetItem(product.category))
+            self.inventory_view.table.setItem(i, 2, QTableWidgetItem(product.product_size))
+            self.inventory_view.table.setItem(i, 3, QTableWidgetItem(product.color))
+            self.inventory_view.table.setItem(i, 4, QTableWidgetItem(str(product.price)))
+            self.inventory_view.table.setItem(i, 5, QTableWidgetItem(str(product.stock)))
 
-            self.btn_ver = QPushButton("Editar")
-            self.btn_ver.setObjectName("btnVerTabla")
-            self.btn_ver.setCursor(Qt.PointingHandCursor)
-            self.pagina_inventario.tabla.setCellWidget(i, 6, self.btn_ver)
-            color_fondo = QColor("#ffffff")
-            if int(producto.stock_actual) == 0:
-                color_fondo = QColor("#f8d7da") 
+            self.btn_edit = QPushButton("Editar")
+            self.btn_edit.setObjectName("btn_edit")
+            self.btn_edit.setCursor(Qt.PointingHandCursor)
+            self.inventory_view.table.setCellWidget(i, 6, self.btn_edit)
+            background_color = QColor("#ffffff")
+            if int(product.stock) == 0:
+                background_color = QColor("#f8d7da") 
             else:
-                color_fondo = QColor("#d4edda")
+                background_color = QColor("#d4edda")
 
             for col in range(7):
-                item = self.pagina_inventario.tabla.item(i, col)
+                item = self.inventory_view.table.item(i, col)
                 if item:
-                    item.setBackground(color_fondo)
+                    item.setBackground(background_color)
                     item.setForeground(QColor("#444444"))       
                     
                     
-    def editar_producto(self, producto):
+    def edit_product(self, product):
         pass
             

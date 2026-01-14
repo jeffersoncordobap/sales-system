@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QDate
 
-class PaginaReportes(QWidget):
+class ReportsView(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("PaginaReportes")

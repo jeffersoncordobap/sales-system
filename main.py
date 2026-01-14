@@ -2,41 +2,41 @@ import sys
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtCore import QFile, QTextStream
 
-from database.connection import ConexionDB
-from controllers.login_controller import ControladorLogin
-from services.inventory_service import ServicioInventario
-from repositories.product_repository import RepositorioProducto
+from database.connection import DatabaseConnection
+from controllers.login_controller import LoginController
+from services.inventory_service import InventoryService
+from repositories.product_repository import ProductRepository
 
 
-def obtener_estilo():
+def get_style():
     """Lee el archivo QSS desde el sistema de recursos de Qt."""
-    archivo = QFile(":/styles/styles.qss")
-    if archivo.open(QFile.ReadOnly | QFile.Text):
-        flujo = QTextStream(archivo)
-        return flujo.readAll()
+    file = QFile(":/styles/styles.qss")
+    if file.open(QFile.ReadOnly | QFile.Text):
+        flow = QTextStream(file)
+        return flow.readAll()
     return ""
 
 def main():
-    db = ConexionDB()
+    db = DatabaseConnection()
     try:
-        db.inicializar_db()
-        conexion = db.conectar()
+        db.initialize_db()
+        conn = db.connect_database()
     except Exception as e:
         print(f"Error crítico al iniciar la base de datos: {e}")
         return 
 
 
-    repo_producto = RepositorioProducto(conexion)
-    servicios = {"inventario": ServicioInventario(repo_producto)}
+    product_repository = ProductRepository(conn)
+    services = {"inventario": InventoryService(product_repository)}
 
 
     app = QApplication(sys.argv)
-    estilo = obtener_estilo()
-    if estilo:
-        app.setStyleSheet(estilo)
+    style = get_style()
+    if style:
+        app.setStyleSheet(style)
 
-    controlador = ControladorLogin(servicios)
-    controlador.mostrar_login()
+    controlador = LoginController(services)
+    controlador.show_login()
     
     sys.exit(app.exec())
 

@@ -1,7 +1,7 @@
-class ServicioAutenticacion:
+class AuthService:
 
-    def autenticar_usuario(self, usuario, contrasena):
-        if usuario == "admin" and contrasena == "123":
+    def authenticate_user(self, user, password):
+        if user == "admin" and password == "123":
             return True
         return False
             

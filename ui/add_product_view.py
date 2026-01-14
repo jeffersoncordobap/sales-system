@@ -1,45 +1,52 @@
 from PySide6.QtWidgets import (
-    QDialog, QVBoxLayout, QFormLayout, QLineEdit, 
-    QDoubleSpinBox, QSpinBox, QComboBox, QPushButton, QHBoxLayout
-)
+                                QDialog,
+                                QVBoxLayout,
+                                QFormLayout,
+                                QLineEdit, 
+                                QDoubleSpinBox,
+                                QSpinBox, 
+                                QComboBox, 
+                                QPushButton, 
+                                QHBoxLayout
+                            )
 from PySide6.QtCore import Qt
-from models.product import Producto
+from models.product import Product
 
-class DialogoProducto(QDialog):
+class ProductDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Registrar Nuevo Producto")
         self.setFixedWidth(400)
-        self.setObjectName("DialogoProducto")
+        self.setObjectName("product_dialog")
         
-        self.configurar_interfaz()
+        self.setup_ui()
 
-    def configurar_interfaz(self):
-        layout_principal = QVBoxLayout(self)
+    def setup_ui(self):
+        main_layout = QVBoxLayout(self)
         
-        self.formulario = QFormLayout()
-        self.formulario.setSpacing(15)
-        self.formulario.setLabelAlignment(Qt.AlignLeft)
+        self.form = QFormLayout()
+        self.form.setSpacing(15)
+        self.form.setLabelAlignment(Qt.AlignLeft)
 
-        # self.ent_codigo_de_barras = QLineEdit()
-        # self.ent_codigo_de_barras.setPlaceholderText("Escanee o deje vacío para autogenerar")
-        # self.ent_codigo_de_barras.setObjectName("EntradaCodigo")
+        # self.input_code_bar = QLineEdit()
+        # self.input_code_bar.setPlaceholderText("Escanee o deje vacío para autogenerar")
+        # self.input_code_bar.setObjectName("input_code_bar")
         
-        # self.ent_codigo_de_barras.setToolTip("Si se deja vacío, el sistema asignará un código único basado en el ID.")
+        # self.input_code_bar.setToolTip("Si se deja vacío, el sistema asignará un código único basado en el ID.")
         
-        self.ent_nombre = QLineEdit()
-        self.ent_nombre.setPlaceholderText("Ej: chancla eva")
+        self.input_name = QLineEdit()
+        self.input_name.setPlaceholderText("Ej: chancla eva")
         
-        self.ent_categoria = QComboBox()
-        self.ent_categoria.addItems(["Chancla", "Babucha","Botas", "Calzado", "Accesorios"])
-        self.ent_categoria.setEditable(True) 
+        self.input_category = QComboBox()
+        self.input_category.addItems(["Chancla", "Babucha","Botas", "Calzado", "Accesorios"])
+        self.input_category.setEditable(True) 
 
-        self.ent_talla = QLineEdit()
-        self.ent_talla.setPlaceholderText("Ej: 32")
+        self.input_size = QLineEdit()
+        self.input_size.setPlaceholderText("Ej: 36")
         
-        self.ent_color = QLineEdit()
-        self.ent_color.setPlaceholderText("Ej: Rojo, Azul, Verde")
-
+        self.input_color = QLineEdit()
+        self.input_color.setPlaceholderText("Ej: Rojo, Azul, Verde")
+        
         self.spn_precio = QDoubleSpinBox()
         self.spn_precio.setRange(0, 9999999)
         self.spn_precio.setPrefix("$ ")
@@ -47,45 +54,45 @@ class DialogoProducto(QDialog):
         self.spn_stock = QSpinBox()
         self.spn_stock.setRange(0, 10000)
 
-        #self.formulario.addRow("Código de Barras:", self.ent_codigo_de_barras)
-        self.formulario.addRow("Nombre Producto:", self.ent_nombre)
-        self.formulario.addRow("Categoría:", self.ent_categoria)
-        self.formulario.addRow("Talla:", self.ent_talla)
-        self.formulario.addRow("Color:", self.ent_color)
-        self.formulario.addRow("Precio de Venta:", self.spn_precio)
-        self.formulario.addRow("Stock Inicial:", self.spn_stock)
+        #self.form.addRow("Código de Barras:", self.input_code_bar)
+        self.form.addRow("Nombre Producto:", self.input_name)
+        self.form.addRow("Categoría:", self.input_category)
+        self.form.addRow("Talla:", self.input_size)
+        self.form.addRow("Color:", self.input_color)
+        self.form.addRow("Precio de Venta:", self.spn_precio)
+        self.form.addRow("Stock Inicial:", self.spn_stock)
 
-        layout_principal.addLayout(self.formulario)
+        main_layout.addLayout(self.form)
 
-        botones = QHBoxLayout()
-        self.btn_guardar = QPushButton("GUARDAR PRODUCTO")
-        self.btn_guardar.setObjectName("BtnGuardarProducto")
-        self.btn_guardar.setMinimumHeight(40)
-        self.btn_guardar.clicked.connect(self.cerrar_dialogo)
+        buttons = QHBoxLayout()
+        self.btn_save = QPushButton("GUARDAR PRODUCTO")
+        self.btn_save.setObjectName("btn_save")
+        self.btn_save.setMinimumHeight(40)
+        self.btn_save.clicked.connect(self.close_dialog)
         
-        self.btn_cancelar = QPushButton("Cancelar")
-        self.btn_cancelar.clicked.connect(self.reject)
+        self.btn_cancel = QPushButton("Cancelar")
+        self.btn_cancel.clicked.connect(self.reject)
 
-        botones.addWidget(self.btn_cancelar)
-        botones.addWidget(self.btn_guardar)
-        layout_principal.addLayout(botones)
+        buttons.addWidget(self.btn_cancel)
+        buttons.addWidget(self.btn_save)
+        main_layout.addLayout(buttons)
 
-    def validar_interfaz(self):
+    def validate_ui(self):
         """Valida solo lo visual (campos vacíos)."""
-        self.ent_nombre.setStyleSheet("")
-        self.ent_talla.setStyleSheet("")
-        self.ent_color.setStyleSheet("")
+        self.input_name.setStyleSheet("")
+        self.input_size.setStyleSheet("")
+        self.input_color.setStyleSheet("")
         self.spn_precio.setStyleSheet("")   
         self.spn_stock.setStyleSheet("")
         
-        if not self.ent_nombre.text().strip():
-            self.ent_nombre.setStyleSheet("border: 1px solid red;")
+        if not self.input_name.text().strip():
+            self.input_name.setStyleSheet("border: 1px solid red;")
             return False
-        elif not self.ent_talla.text().strip():
-            self.ent_talla.setStyleSheet("border: 1px solid red;")
+        elif not self.input_size.text().strip():
+            self.input_size.setStyleSheet("border: 1px solid red;")
             return False
-        elif not self.ent_color.text().strip():
-            self.ent_color.setStyleSheet("border: 1px solid red;")
+        elif not self.input_color.text().strip():
+            self.input_color.setStyleSheet("border: 1px solid red;")
             return False
         elif not self.spn_precio.value():
             self.spn_precio.setStyleSheet("border: 1px solid red;")
@@ -95,19 +102,19 @@ class DialogoProducto(QDialog):
             return False
         return True
 
-    def obtener_producto(self):
+    def get_product(self):
         """Retorna un objeto Producto listo para ser procesado."""
-        return Producto(
-            #codigo_barras=self.ent_codigo_de_barras.text().strip(),
-            nombre=self.ent_nombre.text().strip().upper(),
-            categoria=self.ent_categoria.currentText().upper(),
-            talla=self.ent_talla.text().strip(),
-            color=self.ent_color.text().strip().upper(),
-            precio_venta=self.spn_precio.value(),
-            stock_actual=self.spn_stock.value(),
-            estado_gestion="ACTIVO"
+        return Product(
+            #code_bar=self.input_code_bar.text().strip(),
+            product_name = self.input_name.text().strip().upper(),
+            category = self.input_category.currentText().upper(),
+            product_size = self.input_size.text().strip(),
+            color = self.input_color.text().strip().upper(),
+            price = self.spn_precio.value(),
+            stock = self.spn_stock.value(),
+            management_status = "ACTIVO"
         )
         
-    def cerrar_dialogo(self):
-        if self.validar_interfaz():
+    def close_dialog(self):
+        if self.validate_ui():
             self.accept()

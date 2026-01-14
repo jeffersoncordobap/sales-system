@@ -1,66 +1,66 @@
-from models.product import Producto 
+from models.product import Product
 
-class RepositorioProducto:
-    def  __init__(self, conexion_bd):
-        self.conexion_bd = conexion_bd
+class ProductRepository:
+    def  __init__(self, db_connection):
+        self.db_connection = db_connection
         
     
-    def mapear_producto(self, atributos_producto):
+    def convert_to_product(self, product_atributes):
         """Método que convierte una tupla en un obejto
-        de la clase Producto
+        de la clase Product
 
         Args:
-            atributos_producto (tuple): Una tupla con los atributos del producto.
+            product_atributes (tuple): Una tupla con los atributos del product.
 
         Returns:
-            producto: Un objeto de la clase Producto.
+            product: Un objeto de la clase Product.
         """        
-        producto = Producto(
-            id_producto=atributos_producto[0],
-            codigo_barras=atributos_producto[1],
-            nombre=atributos_producto[2],
-            categoria=atributos_producto[3],
-            talla=atributos_producto[4],
-            color=atributos_producto[5],
-            precio_venta=atributos_producto[6],
-            stock_actual=atributos_producto[7],
-            estado_gestion=atributos_producto[8],
+        product = Product(
+            product_id = product_atributes[0],
+            bar_code = product_atributes[1],
+            product_name = product_atributes[2],
+            category = product_atributes[3],
+            product_size = product_atributes[4],
+            color = product_atributes[5],
+            price = product_atributes[6],
+            stock = product_atributes[7],
+            management_status = product_atributes[8],
         )
-        return producto
-    
-    def obtener_producto_por_codigo_de_barras(self, codigo_barras):
-        """Método que busca y retorna un producto por codigo de barras
+        return product
+
+    def get_product_by_bar_code(self, bar_code):
+        """Método que busca y retorna un product por codigo de barras
 
         Args:
-            codigo_barras (str): El código de barras del producto a buscar.
+            bar_code (str): El código de barras del product a buscar.
 
         Raises:
             e: Descripción del error que puede ocurrir.
 
         Returns:
-            producto: Un objeto de la clase Producto o
+            product: Un objeto de la clase Product o
             None si el código de barras no existe.
         """        
-        cursor = self.conexion_bd.cursor()
-        consulta = "SELECT * FROM productos WHERE codigo_barras = ?"
+        cursor = self.db_connection.cursor()
+        query = "SELECT * FROM products WHERE bar_code = ?"
         try:
-            cursor.execute(consulta, (codigo_barras,))
-            atributos_producto = cursor.fetchone()
-            if atributos_producto:
-                return self.mapear_producto(atributos_producto)
+            cursor.execute(query, (bar_code,))
+            product_atributes = cursor.fetchone()
+            if product_atributes:
+                return self.convert_to_product(product_atributes)
             return None
         except Exception as e:
             raise e
         finally:
             cursor.close()
 
-    def producto_existe(self, producto: Producto):
-        cursor = self.conexion_bd.cursor()
-        consulta = "SELECT * FROM productos WHERE nombre = ? AND talla = ? AND color = ?"
+    def product_exists(self, product: Product):
+        cursor = self.db_connection.cursor()
+        query = "SELECT * FROM products WHERE product_name = ? AND product_size = ? AND color = ?"
         try:
-            cursor.execute(consulta, (producto.nombre, producto.talla, producto.color))
-            atributos_producto = cursor.fetchone()
-            if atributos_producto:
+            cursor.execute(query, (product.product_name, product.product_size, product.color))
+            product_atributes = cursor.fetchone()
+            if product_atributes:
                 return True
             return False
         except Exception as e:
@@ -68,124 +68,124 @@ class RepositorioProducto:
         finally:
             cursor.close()
 
-    def buscar_productos_por_filtro(self, palabras):
-        """Método que devuleve una lista de productos los cuales algunos
-        de sus atributos coinciden con la lista de palabras enviadas.
+    def get_products_by_filter(self, words):
+        """Método que devuleve una lista de products los cuales algunos
+        de sus atributos coinciden con la lista de words enviadas.
 
         Args:
-            palabras (list): Una lista de palabras para buscar productos.
+            words (list): Una lista de words para buscar products.
 
         Returns:
-            list: Una lista de objetos Producto que coinciden con los criterios de búsqueda.
+            list: Una lista de objetos Product que coinciden con los criterios de búsqueda.
         """        
-        cursor = self.conexion_bd.cursor()
+        cursor = self.db_connection.cursor()
 
-        consulta = """
+        query = """
             SELECT *
-            FROM productos
-            WHERE estado_gestion = 1
+            FROM products
+            WHERE management_status = 1
         """
 
-        parametros = []
+        parameters = []
 
-        for palabra in palabras:
-            consulta += """
+        for word in words:
+            query += """
                 AND (
-                    nombre LIKE ?
-                    OR categoria LIKE ?
+                    product_name LIKE ?
+                    OR category LIKE ?
                     OR color LIKE ?
-                    OR CAST(talla AS TEXT) LIKE ?
+                    OR CAST(product_size AS TEXT) LIKE ?
                 )
             """
-            like = f"%{palabra}%"
-            parametros.extend([like, like, like, like])
+            like = f"%{word}%"
+            parameters.extend([like, like, like, like])
 
         try:
-            cursor.execute(consulta, parametros)
+            cursor.execute(query, parameters)
             filas = cursor.fetchall()
-            return [self.mapear_producto(fila) for fila in filas]
+            return [self.convert_to_product(fila) for fila in filas]
         finally:
             cursor.close()
 
             
-    def agregar_producto(self, producto: Producto):
-        """Métdo que adiciona un nuevo producto a la base de datos
+    def add_product(self, product: Product):
+        """Métdo que adiciona un nuevo product a la base de datos
 
         Args:
-            producto (Producto): obejeto de la clase producto
+            product (Product): obejeto de la clase product
 
         Raises:
             ValueError: Error por codigo de barras duplicado
-            e: Error al adicionar producto
+            e: Error al adicionar product
 
         Returns:
-            Bool: True si el producto fue agregado exitosamente
+            Bool: True si el product fue agregado exitosamente
         """        
-        if self.producto_existe(producto):
-            mensaje = (f"No se puede registrar: El producto: '{producto.nombre},"
-                       f"'{producto.talla}','{producto.color}'\n "
+        if self.product_exists(product):
+            message = (f"No se puede registrar: El product: '{product.product_name},"
+                       f"'{product.product_size}','{product.color}'\n "
                        f"ya existe en el inventario.")
-            raise ValueError(mensaje)
-        cursor = self.conexion_bd.cursor()
-        consulta = """INSERT INTO productos 
-                      (codigo_barras,
-                      nombre,
-                      categoria,
-                      talla,
+            raise ValueError(message)
+        cursor = self.db_connection.cursor()
+        query = """INSERT INTO products 
+                      (bar_code,
+                      product_name,
+                      category,
+                      product_size,
                       color,
-                      precio_venta,
-                      stock_actual,
-                      estado_gestion) 
+                      price,
+                      stock,
+                      management_status) 
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
         try:
-            cursor.execute(consulta, (producto.codigo_barras,
-                                      producto.nombre,
-                                      producto.categoria,
-                                      producto.talla,
-                                      producto.color,
-                                      producto.precio_venta,
-                                      producto.stock_actual,
-                                      producto.estado_gestion))
-            self.conexion_bd.commit()     
+            cursor.execute(query, (product.bar_code,
+                                      product.product_name,
+                                      product.category,
+                                      product.product_size,
+                                      product.color,
+                                      product.price,
+                                      product.stock,
+                                      product.management_status))
+            self.db_connection.commit()     
             return True     
         except Exception as e: 
-            self.conexion_bd.rollback() 
+            self.db_connection.rollback() 
             raise e
         finally:
             cursor.close()
             
 
-    def actualizar_stock_producto(self, codigo_barras, nuevo_stock):
-        """Método que actualiza el stock actual de un producto
+    def update_product_stock(self, bar_code, new_stock):
+        """Método que actualiza el stock actual de un product
         Args:
-            codigo_barras (str): El código de barras del producto a actualizar.
-            nuevo_stock (int): El nuevo valor de stock actual.
+            bar_code (str): El código de barras del product a actualizar.
+            new_stock (int): El nuevo valor de stock actual.
         Raises:
-            Exception: Si no se encuentra el producto o hay un error en la actualización.
+            Exception: Si no se encuentra el product o hay un error en la actualización.
         Returns:
             bool: True si la actualización fue exitosa.
         """
-        cursor = self.conexion_bd.cursor()
-        consulta = "UPDATE productos SET stock_actual = ? WHERE codigo_barras = ?"
+        cursor = self.db_connection.cursor()
+        query = "UPDATE products SET stock = ? WHERE bar_code = ?"
         try:
-            cursor.execute(consulta, (nuevo_stock, codigo_barras))
+            cursor.execute(query, (new_stock, bar_code))
             if cursor.rowcount == 0:
-                mensaje = (f"Error: No se encontró ningún producto \n"
-                           f"con el código '{codigo_barras}'.")
-                raise Exception(mensaje)
-            self.conexion_bd.commit()
+                message = (f"Error: No se encontró ningún product \n"
+                           f"con el código '{bar_code}'.")
+                raise Exception(message)
+            self.db_connection.commit()
             return True
         except Exception as e:
-            self.conexion_bd.rollback()
+            self.db_connection.rollback()
             raise e
         finally:
             cursor.close()
-            
-    def actualizar_producto(self, producto: Producto):
-        """Método que actualiza los datos de un producto existente
+
+    def edit_product(self, product: Product):
+        """Método que actualiza los datos de un product existente
 
         Args:
-            producto (Producto): Objeto de la clase Producto con los datos actualizados.
+            product (Product): Objeto de la clase Product con los datos actualizados.
 
         Raises:
             e: Descripción del error que puede ocurrir.
@@ -193,72 +193,72 @@ class RepositorioProducto:
         Returns:
             bool: True si la actualización fue exitosa.
         """        
-        cursor = self.conexion_bd.cursor()
-        consulta = """UPDATE productos 
-                      SET codigo_barras = ?,
-                          nombre = ?, 
-                          categoria = ?, 
-                          talla = ?, 
+        cursor = self.db_connection.cursor()
+        query = """UPDATE products 
+                      SET bar_code = ?,
+                          product_name = ?, 
+                          category = ?, 
+                          product_size = ?, 
                           color = ?, 
-                          precio_venta = ?, 
-                          stock_actual = ?, 
-                          estado_gestion = ? 
+                          price = ?, 
+                          stock = ?, 
+                          management_status = ? 
                       WHERE id_producto = ?"""
         try:
-            cursor.execute(consulta, (producto.codigo_barras,
-                                      producto.nombre,
-                                      producto.categoria,
-                                      producto.talla,
-                                      producto.color,
-                                      producto.precio_venta,
-                                      producto.stock_actual,
-                                      producto.estado_gestion,
-                                      producto.id_producto))
+            cursor.execute(query, (product.bar_code,
+                                      product.product_name,
+                                      product.category,
+                                      product.product_size,
+                                      product.color,
+                                      product.price,
+                                      product.stock,
+                                      product.management_status,
+                                      product.id_producto))
             
             if cursor.rowcount == 0:
-                mensaje = (f"Error: No se encontró ningún producto \n"
-                           f"con el ID '{producto.id_producto}'.")
-                raise Exception(mensaje)
+                message = (f"Error: No se encontró ningún product \n"
+                           f"con el ID '{product.id_producto}'.")
+                raise Exception(message)
             
-            self.conexion_bd.commit()
+            self.db_connection.commit()
             return True
         except Exception as e:
-            self.conexion_bd.rollback()
+            self.db_connection.rollback()
             raise e
         finally:
             cursor.close()
 
 
-    def listar_productos(self):
-        """Método que lista todos los productos en la base de datos
+    def get_all_products(self):
+        """Método que lista todos los products en la base de datos
 
         Raises:
             e: Descripción del error que puede ocurrir.
 
         Returns:
-            lista_productos: Una lista de objetos de la clase Producto.
+            lista_productos: Una lista de objetos de la clase Product.
         """        
-        cursor = self.conexion_bd.cursor()
-        consulta = "SELECT * FROM productos"
+        cursor = self.db_connection.cursor()
+        query = "SELECT * FROM products"
         lista_productos = []
         try:
-            cursor.execute(consulta)
+            cursor.execute(query)
             filas_productos = cursor.fetchall()
-            for atributos_producto in filas_productos:
-                producto = self.mapear_producto(atributos_producto)
-                lista_productos.append(producto)
+            for product_atributes in filas_productos:
+                product = self.convert_to_product(product_atributes)
+                lista_productos.append(product)
             return lista_productos
         except Exception as e:
             raise e
         finally:
             cursor.close()
 
-    def cambiar_estado_gestion_producto(self, codigo_barras, nuevo_estado):
-        """Método que cambia el estado de gestión de un producto
+    def change_product_management_status(self, bar_code, new_status):
+        """Método que cambia el estado de gestión de un product
 
         Args:
-            codigo_barras (str): El código de barras del producto.
-            nuevo_estado (str): El nuevo estado de gestión ("ACTIVO" o "INACTIVO").
+            bar_code (str): El código de barras del product.
+            new_status (str): El nuevo estado de gestión ("ACTIVO" o "INACTIVO").
 
         Raises:
             e: Descripción del error que puede ocurrir.
@@ -266,18 +266,18 @@ class RepositorioProducto:
         Returns:
             bool: True si la actualización fue exitosa.
         """        
-        cursor = self.conexion_bd.cursor()
-        consulta = "UPDATE productos SET estado_gestion = ? WHERE codigo_barras = ?"
+        cursor = self.db_connection.cursor()
+        query = "UPDATE products SET management_status = ? WHERE bar_code = ?"
         try:
-            cursor.execute(consulta, (nuevo_estado, codigo_barras))
+            cursor.execute(query, (new_status, bar_code))
             if cursor.rowcount == 0:
-                mensaje = (f"Error: No se encontró ningún producto \n"
-                           f"con el código '{codigo_barras}'.")
-                raise Exception(mensaje)
-            self.conexion_bd.commit()
+                message = (f"Error: No se encontró ningún product \n"
+                           f"con el código '{bar_code}'.")
+                raise Exception(message)
+            self.db_connection.commit()
             return True
         except Exception as e:
-            self.conexion_bd.rollback()
+            self.db_connection.rollback()
             raise e
         finally:
             cursor.close()

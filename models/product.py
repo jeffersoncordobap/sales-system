@@ -1,25 +1,24 @@
-class Producto:
+class Product:
     def __init__(self,
-                 nombre,
-                 categoria,
-                 talla, 
+                 product_name,
+                 category,
+                 product_size, 
                  color,
-                 precio_venta,
-                 stock_actual, 
-                 estado_gestion="ACTIVO",
-                 id_producto=None,
-                 codigo_barras=None,
+                 price,
+                 stock, 
+                 management_status="ACTIVO",
+                 product_id=None,
+                 bar_code=None,
                  ):
 
-        self.id_producto = id_producto
-        self.codigo_barras = codigo_barras
-        self.nombre = nombre
-        self.categoria = categoria
-        self.talla = talla
+        self.product_id = product_id
+        self.bar_code = bar_code
+        self.product_name = product_name
+        self.category = category
+        self.product_size = product_size
         self.color = color
-        self.precio_venta = precio_venta
-        self.stock_actual = stock_actual
-        self.estado_gestion = estado_gestion
-
+        self.price = price
+        self.stock = stock
+        self.management_status = management_status
     def __str__(self):
-        return f"Producto: {self.nombre} (Talla: {self.talla}) - Stock: {self.stock_actual}"
+        return f"Producto: {self.product_name} (Talla: {self.product_size}) - Stock: {self.stock}"
