@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QDateTime
 
-class OpenBoxDialog(QDialog):
+class OpenRegisterDialog(QDialog):
     def __init__(self, cashier_name, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Apertura de Turno")
@@ -17,13 +17,13 @@ class OpenBoxDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.setSpacing(20)
 
-        self.header_open_box = QFrame()
-        self.header_open_box.setObjectName("header_open_box")
-        header_layout = QVBoxLayout(self.header_open_box)
+        self.header_open_register = QFrame()
+        self.header_open_register.setObjectName("header_open_register")
+        header_layout = QVBoxLayout(self.header_open_register)
         
-        lbl_title_open_box = QLabel("APERTURA DE CAJA")
-        lbl_title_open_box.setObjectName("lbl_title_open_box")
-        lbl_title_open_box.setAlignment(Qt.AlignCenter)
+        lbl_title_open_register = QLabel("APERTURA DE CAJA")
+        lbl_title_open_register.setObjectName("lbl_title_open_register")
+        lbl_title_open_register.setAlignment(Qt.AlignCenter)
         
         self.lbl_date = QLabel(f"Fecha: {QDateTime.currentDateTime().toString('dd/MM/yyyy HH:mm')}")
         self.lbl_date.setObjectName("lbl_opening_information")
@@ -31,17 +31,17 @@ class OpenBoxDialog(QDialog):
         lbl_user = QLabel(f"Cajero: {self.cashier_name}")
         lbl_user.setObjectName("lbl_opening_information")
 
-        header_layout.addWidget(lbl_title_open_box)
+        header_layout.addWidget(lbl_title_open_register)
         header_layout.setSpacing(20)
         header_layout.addWidget(self.lbl_date)
         header_layout.setSpacing(10)
         header_layout.addWidget(lbl_user)
-        layout.addWidget(self.header_open_box)
+        layout.addWidget(self.header_open_register)
 
 
         amount_layout = QVBoxLayout()
         lbl_instruction = QLabel("Ingrese el monto inicial en caja (Base):")
-        lbl_instruction.setObjectName("lbl_instruction_open_box")
+        lbl_instruction.setObjectName("lbl_instruction_open_register")
         
         self.input_initial_amount = QLineEdit()
         self.input_initial_amount.setObjectName("input_initial_amount")
@@ -56,7 +56,7 @@ class OpenBoxDialog(QDialog):
 
 
         self.btn_confirm = QPushButton("INICIAR TURNO")
-        self.btn_confirm.setObjectName("btn_confirm_open_box")
+        self.btn_confirm.setObjectName("btn_confirm_open_register")
         self.btn_confirm.clicked.connect(self.validate_and_accept)
         layout.addWidget(self.btn_confirm)
 

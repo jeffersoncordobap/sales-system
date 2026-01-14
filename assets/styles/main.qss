@@ -189,24 +189,24 @@ QPushButton#btn_sidebar:hover {
 /* ==========================================================
    STYLES SALES
    ========================================================== */
-QPushButton#btn_open_box {
+QPushButton#btn_open_register {
     background-color: transparent;
     color: #1f8ac9;
     border: 1px solid #1f8ac9;
 }
 
-QPushButton#btn_open_box:hover {
+QPushButton#btn_open_register:hover {
     background-color: #1dd2f1;
     color: white;
 }
 
-QPushButton#btn_close_box {
+QPushButton#btn_close_register {
     background-color: transparent;
     color: #e74c3c;
     border: 1px solid #e74c3c;
 }
 
-QPushButton#btn_close_box:hover {
+QPushButton#btn_close_register:hover {
     background-color: #e74c3c;
     color: white;
 }
@@ -401,13 +401,13 @@ QDialog#OpenBoxDialog {
     background-color: #ffffff;
 }
 
-QFrame#header_open_box {
+QFrame#header_open_register {
     background-color: #34495e;
     border-radius: 10px;
     padding: 10px;
 }
 
-QLabel#lbl_title_open_box {
+QLabel#lbl_title_open_register {
     color: #ffffff;
     font-size: 18px;
     font-weight: bold;
@@ -421,7 +421,7 @@ QLabel#lbl_opening_information {
 }
 
 
-QLabel#lbl_instruction_open_box {
+QLabel#lbl_instruction_open_register {
     font-weight: bold; 
     color: #2c3e50;
     font-size: 18px;
@@ -440,7 +440,7 @@ QLineEdit#input_initial_amount:focus {
     background-color: #ffffff;
 }
 
-QPushButton#btn_confirm_open_box {
+QPushButton#btn_confirm_open_register {
     background-color: #27ae60;
     color: white;
     font-size: 16px;
@@ -449,43 +449,41 @@ QPushButton#btn_confirm_open_box {
     padding: 12px;
 }
 
-QPushButton#btn_confirm_open_box:hover {
+QPushButton#btn_confirm_open_register:hover {
     background-color: #2ecc71;
 }
 
-QPushButton#btn_confirm_open_box:pressed {
+QPushButton#btn_confirm_open_register:pressed {
     background-color: #1e8449;
 }
 
 
 /* ==========================================================
-   ESTILOS ESPECÍFICOS DE CIERRE DE CAJA
+   STYLES CLOSE REGISTER
    ========================================================== */
 
-QDialog#DialogoCierre {
+QDialog#CloseRegisterDialog {
     background-color: #ffffff;
 }
 
-/* 1. Cabecera Oscura */
-QFrame#CabeceraCierre {
+QFrame#frame_header_close_register {
     background-color: #2c3e50;
     border-radius: 8px;
     padding: 12px;
 }
 
-QLabel#TituloCierre {
+QLabel#lbl_title_summary_close_register {
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
 }
 
-QLabel#InfoCierre {
-    color: #bdc3c7;
-    font-size: 11px;
+QLabel#lbl_info_card_and_transfer{
+    color: #dbdfe2;
+    font-size: 13px;
 }
 
-/* 2. Bloque Digital (Tarjetas y Transferencias) */
-QFrame#FrameDigital {
+QFrame#frame_card_and_transfer {
     background-color: rgba(52, 152, 219, 0.1); /* Azul muy transparente */
     border: 1px solid #3498db;
     border-radius: 5px;
@@ -493,21 +491,19 @@ QFrame#FrameDigital {
     margin: 5px 0px;
 }
 
-/* Estilo para los textos de Tarjeta/Transf dentro del banner */
-QFrame#FrameDigital QLabel {
+QFrame#frame_card_and_transfer{
     color: #ecf0f1;
     font-size: 12px;
 }
 
-/* 3. Valores Principales (Efectivo y Total) */
-QLabel#MontoEsperadoPrincipal {
-    color: #5dade2; /* Un azul más claro para que resalte en el fondo oscuro */
+QLabel#lbl_expected_cash {
+    color: #5dade2; 
     font-size: 19px;
     font-weight: bold;
 }
 
-QLabel#MontoTotalGeneral {
-    color: #2ecc71; /* Verde esmeralda para el TOTAL */
+QLabel#lbl_general_total {
+    color: #2ecc71; 
     font-size: 21px;
     font-weight: bold;
     border-top: 1px solid #3e4f5f;
@@ -515,36 +511,34 @@ QLabel#MontoTotalGeneral {
     margin-top: 5px;
 }
 
-/* 4. Sección de Arqueo (Donde el cajero escribe) */
-QLineEdit#EntradaDeclarado {
+QLineEdit#input_cash_counted {
     font-size: 22px;
     font-weight: bold;
     padding: 10px;
-    border: 2px solid #3498db; /* Borde azul para indicar que es el foco */
+    border: 2px solid #3498db; 
     border-radius: 6px;
     color: #2c3e50;
 }
 
-QTextEdit#TxtObservaciones {
+QTextEdit#text_observations_close_register{
     border: 1px solid #dfe4ea;
     border-radius: 6px;
     background-color: #f9f9f9;
 }
 
-/* 5. Diferencia */
-QFrame#FrameDiferencia {
+QFrame#frame_difference_close_register {
     background-color: #f1f2f6;
     border-radius: 6px;
     padding: 10px;
 }
 
-QLabel#LabelDiferencia {
+QLabel#lbl_difference_close_register{
     font-size: 20px;
     font-weight: bold;
 }
 
-/* 6. Botones y Checkbox */
-QPushButton#BtnFinalizarCierre {
+
+QPushButton#btn_finish_close_register{
     background-color: #2c3e50;
     color: white;
     font-weight: bold;
@@ -552,11 +546,11 @@ QPushButton#BtnFinalizarCierre {
     border-radius: 6px;
 }
 
-QPushButton#BtnFinalizarCierre:hover {
+QPushButton#btn_finish_close_register:hover {
     background-color: #34495e;
 }
 
-QCheckBox#CheckExportar {
+QCheckBox#check_export_report_close_register {
     font-weight: bold;
     color: #7f8c8d;
 }
