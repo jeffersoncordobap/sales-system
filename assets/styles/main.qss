@@ -634,21 +634,21 @@ QLabel#textoAzul { font-size: 18px; font-weight: bold; color: #2980b9; }
    ========================================================== */
 
 /* Contenedor del Formulario */
-QFrame#ContenedorFormGastos {
+QFrame#container_form_expense {
     background-color: #ffffff;
     border: 1px solid #dfe4ea;
     border-radius: 10px;
     padding: 15px;
 }
 
-QLabel#TituloGastos {
+QLabel#expense_title {
     font-size: 16px;
     font-weight: bold;
     color: #e67e22; /* Naranja */
     margin-bottom: 10px;
 }
 
-QLineEdit#EntradaMontoGasto {
+QLineEdit#input_amount_of_expenditure {
     font-size: 18px;
     font-weight: bold;
     color: #2c3e50;
@@ -658,7 +658,7 @@ QLineEdit#EntradaMontoGasto {
 }
 
 /* Botón Guardar */
-QPushButton#BtnGuardarGasto {
+QPushButton#btn_save_spent {
     background-color: #e67e22;
     color: white;
     font-size: 14px;
@@ -666,7 +666,7 @@ QPushButton#BtnGuardarGasto {
     border-radius: 6px;
 }
 
-QPushButton#BtnGuardarGasto:hover {
+QPushButton#btn_save_spent:hover {
     background-color: #d35400;
 }
 

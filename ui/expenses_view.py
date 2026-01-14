@@ -7,30 +7,30 @@ from PySide6.QtCore import Qt, QDate
 class ExpensesView(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setObjectName("PaginaGastos")
-        self.layout_principal = QHBoxLayout(self) 
-        self.layout_principal.setSpacing(20)
+        self.setObjectName("ExpensesView")
+        self.main_layout = QHBoxLayout(self) 
+        self.main_layout.setSpacing(20)
 
-        self.crear_formulario()
-        self.crear_historial_diario()
+        self.create_form()
+        self.create_daily_history()
 
-    def crear_formulario(self):
+    def create_form(self):
         """Sección izquierda: Formulario de Registro"""
-        self.contenedor_form = QFrame()
-        self.contenedor_form.setObjectName("ContenedorFormGastos")
-        self.contenedor_form.setFixedWidth(350)
+        self.container_form = QFrame()
+        self.container_form.setObjectName("container_form_expense")
+        self.container_form.setFixedWidth(350)
         
-        layout = QVBoxLayout(self.contenedor_form)
+        layout = QVBoxLayout(self.container_form)
         layout.setSpacing(15)
 
-        titulo = QLabel("REGISTRAR GASTO / EGRESO")
-        titulo.setObjectName("TituloGastos")
-        layout.addWidget(titulo)
+        expense_title = QLabel("REGISTRAR GASTO / EGRESO")
+        expense_title.setObjectName("expense_title")
+        layout.addWidget(expense_title)
 
         # Categoría
         layout.addWidget(QLabel("Categoría:"))
-        self.combo_categoria = QComboBox()
-        self.combo_categoria.addItems([
+        self.combo_category = QComboBox()
+        self.combo_category.addItems([
             "Insumos (Bolsas, Pegante, etc.)",
             "Servicios Públicos",
             "Pago de Turnos / Nómina",
@@ -38,51 +38,51 @@ class ExpensesView(QWidget):
             "Compras a Proveedores",
             "Otros"
         ])
-        layout.addWidget(self.combo_categoria)
+        layout.addWidget(self.combo_category)
 
         # Monto
         layout.addWidget(QLabel("Monto del Gasto ($):"))
-        self.entrada_monto = QLineEdit()
-        self.entrada_monto.setPlaceholderText("0.00")
-        self.entrada_monto.setObjectName("EntradaMontoGasto")
-        layout.addWidget(self.entrada_monto)
+        self.input_amount_of_expenditure = QLineEdit()
+        self.input_amount_of_expenditure.setPlaceholderText("0.00")
+        self.input_amount_of_expenditure.setObjectName("input_amount_of_expenditure")
+        layout.addWidget(self.input_amount_of_expenditure)
 
         # Método de Pago (Fundamental para la contadora)
         layout.addWidget(QLabel("Pagado desde:"))
-        self.combo_pago = QComboBox()
-        self.combo_pago.addItems(["Caja Principal (Efectivo)", "Tarjeta","Transferencia", "Otro"])
-        layout.addWidget(self.combo_pago)
+        self.combo_payment_method = QComboBox()
+        self.combo_payment_method.addItems(["Caja Principal (Efectivo)", "Tarjeta","Transferencia", "Otro"])
+        layout.addWidget(self.combo_payment_method)
 
         # Descripción
         layout.addWidget(QLabel("Descripción / Concepto:"))
-        self.txt_descripcion = QTextEdit()
-        self.txt_descripcion.setPlaceholderText("Ej: Compra de 100 bolsas medianas...")
-        self.txt_descripcion.setMaximumHeight(100)
-        layout.addWidget(self.txt_descripcion)
+        self.txt_description_of_the_expense = QTextEdit()
+        self.txt_description_of_the_expense.setPlaceholderText("Ej: Compra de 100 bolsas medianas...")
+        self.txt_description_of_the_expense.setMaximumHeight(100)
+        layout.addWidget(self.txt_description_of_the_expense)
 
         layout.addStretch()
 
         # Botón
-        self.btn_guardar = QPushButton("GUARDAR GASTO")
-        self.btn_guardar.setObjectName("BtnGuardarGasto")
-        self.btn_guardar.setMinimumHeight(45)
-        layout.addWidget(self.btn_guardar)
+        self.btn_save_spent = QPushButton("GUARDAR GASTO")
+        self.btn_save_spent.setObjectName("btn_save_spent")
+        self.btn_save_spent.setMinimumHeight(45)
+        layout.addWidget(self.btn_save_spent)
 
-        self.layout_principal.addWidget(self.contenedor_form)
+        self.main_layout.addWidget(self.container_form)
 
-    def crear_historial_diario(self):
+    def create_daily_history(self):
         """Sección derecha: Lista de gastos del día"""
-        contenedor_lista = QFrame()
-        layout = QVBoxLayout(contenedor_lista)
+        container_list = QFrame()
+        layout = QVBoxLayout(container_list)
 
-        lbl_historial = QLabel("Gastos Registrados Hoy")
-        lbl_historial.setObjectName("SubtituloGastos")
-        layout.addWidget(lbl_historial)
+        lbl_spending_history = QLabel("Gastos Registrados Hoy")
+        lbl_spending_history.setObjectName("lbl_spending_history")
+        layout.addWidget(lbl_spending_history)
 
-        self.tabla_hoy = QTableWidget()
-        self.tabla_hoy.setColumnCount(4)
-        self.tabla_hoy.setHorizontalHeaderLabels(["Hora", "Categoría", "Descripción", "Monto"])
-        self.tabla_hoy.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table_today_expenses = QTableWidget()
+        self.table_today_expenses.setColumnCount(4)
+        self.table_today_expenses.setHorizontalHeaderLabels(["Hora", "Categoría", "Descripción", "Monto"])
+        self.table_today_expenses.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         
-        layout.addWidget(self.tabla_hoy)
-        self.layout_principal.addWidget(contenedor_lista)
+        layout.addWidget(self.table_today_expenses)
+        self.main_layout.addWidget(container_list)

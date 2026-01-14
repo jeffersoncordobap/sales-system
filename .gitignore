@@ -3,6 +3,7 @@ venv/
 env/
 .env/
 entorno_*/
+ev_*/
 __pycache__/
 *.pyc
 *.sqlite
