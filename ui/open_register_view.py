@@ -4,69 +4,68 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QDateTime
 
-class OpenBoxDialog(QDialog):
-    def __init__(self, nombre_cajero, parent=None):
+class OpenRegisterDialog(QDialog):
+    def __init__(self, cashier_name, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Apertura de Turno")
         self.setFixedSize(350, 400)
-        self.nombre_cajero = nombre_cajero
-        self.setObjectName("DialogoApertura") # ID para el QSS
-        self.configurar_interfaz()
+        self.cashier_name = cashier_name
+        self.setObjectName("OpenBoxDialog") 
+        self.setup_ui()
 
-    def configurar_interfaz(self):
+    def setup_ui(self):
         layout = QVBoxLayout(self)
         layout.setSpacing(20)
 
-        self.cabecera = QFrame()
-        self.cabecera.setObjectName("CabeceraApertura")
-        layout_cabecera = QVBoxLayout(self.cabecera)
+        self.header_open_register = QFrame()
+        self.header_open_register.setObjectName("header_open_register")
+        header_layout = QVBoxLayout(self.header_open_register)
         
-        lbl_titulo = QLabel("APERTURA DE CAJA")
-        lbl_titulo.setObjectName("TituloApertura")
-        lbl_titulo.setAlignment(Qt.AlignCenter)
+        lbl_title_open_register = QLabel("APERTURA DE CAJA")
+        lbl_title_open_register.setObjectName("lbl_title_open_register")
+        lbl_title_open_register.setAlignment(Qt.AlignCenter)
         
-        self.lbl_fecha = QLabel(f"Fecha: {QDateTime.currentDateTime().toString('dd/MM/yyyy HH:mm')}")
-        self.lbl_fecha.setObjectName("InfoApertura")
+        self.lbl_date = QLabel(f"Fecha: {QDateTime.currentDateTime().toString('dd/MM/yyyy HH:mm')}")
+        self.lbl_date.setObjectName("lbl_opening_information")
         
-        lbl_usuario = QLabel(f"Cajero: {self.nombre_cajero}")
-        lbl_usuario.setObjectName("InfoApertura")
+        lbl_user = QLabel(f"Cajero: {self.cashier_name}")
+        lbl_user.setObjectName("lbl_opening_information")
 
-        layout_cabecera.addWidget(lbl_titulo)
-        layout_cabecera.setSpacing(20)
-        layout_cabecera.addWidget(self.lbl_fecha)
-        layout_cabecera.setSpacing(10)
-        layout_cabecera.addWidget(lbl_usuario)
-        layout.addWidget(self.cabecera)
+        header_layout.addWidget(lbl_title_open_register)
+        header_layout.setSpacing(20)
+        header_layout.addWidget(self.lbl_date)
+        header_layout.setSpacing(10)
+        header_layout.addWidget(lbl_user)
+        layout.addWidget(self.header_open_register)
 
 
-        layout_monto = QVBoxLayout()
-        lbl_instruccion = QLabel("Ingrese el monto inicial en caja (Base):")
-        lbl_instruccion.setObjectName("EtiquetaInstruccion")
+        amount_layout = QVBoxLayout()
+        lbl_instruction = QLabel("Ingrese el monto inicial en caja (Base):")
+        lbl_instruction.setObjectName("lbl_instruction_open_register")
         
-        self.entrada_monto = QLineEdit()
-        self.entrada_monto.setObjectName("EntradaMontoApertura")
-        self.entrada_monto.setPlaceholderText("0.00")
-        self.entrada_monto.setAlignment(Qt.AlignCenter)
+        self.input_initial_amount = QLineEdit()
+        self.input_initial_amount.setObjectName("input_initial_amount")
+        self.input_initial_amount.setPlaceholderText("0.00")
+        self.input_initial_amount.setAlignment(Qt.AlignCenter)
         
-        layout_monto.addWidget(lbl_instruccion,alignment=Qt.AlignCenter)
-        layout_monto.addWidget(self.entrada_monto)
-        layout.addLayout(layout_monto)
-
+        amount_layout.addWidget(lbl_instruction,alignment=Qt.AlignCenter)
+        amount_layout.addWidget(self.input_initial_amount)
+        layout.addLayout(amount_layout)
         layout.addStretch()
 
+        self.btn_confirm = QPushButton("INICIAR TURNO")
+        self.btn_confirm.setObjectName("btn_confirm_open_register")
+        self.btn_confirm.clicked.connect(self.validate_and_accept)
+        layout.addWidget(self.btn_confirm)
 
-        self.btn_confirmar = QPushButton("INICIAR TURNO")
-        self.btn_confirmar.setObjectName("BtnConfirmarApertura")
-        self.btn_confirmar.clicked.connect(self.validar_y_aceptar)
-        layout.addWidget(self.btn_confirmar)
-
-    def validar_y_aceptar(self):
+    def validate_and_accept(self):
         try:
-            monto = float(self.entrada_monto.text())
+            monto = float(self.input_initial_amount.text())
             if monto < 0: raise ValueError
             self.accept()
         except ValueError:
             QMessageBox.warning(self, "Error", "Por favor, ingrese un monto válido.")
 
-    def obtener_monto_inicial(self):
-        return float(self.entrada_monto.text() or 0)
+    def get_initial_amount(self):
+        return float(self.input_initial_amount.text() or 0)
+

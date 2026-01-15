@@ -5,9 +5,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 from ui.confirm_payment_view import ConfirmPaymentDialog
-from ui.open_register_view import OpenBoxDialog
-from ui.close_register_view import CloseBoxDialog
-
+from ui.open_register_view import OpenRegisterDialog
+from ui.close_register_view import CloseRegisterDialog
 
 class SalesView(QWidget):
     def __init__(self):
@@ -21,8 +20,8 @@ class SalesView(QWidget):
         self.create_products_table()
         self.create_footer()
         self.btn_pay.clicked.connect(self.open_confirm_payment_dialog)
-        self.btn_open_box.clicked.connect(self.open_box)
-        self.btn_close_box.clicked.connect(self.close_box)
+        self.btn_open_register.clicked.connect(self.open_box)
+        self.btn_close_register.clicked.connect(self.close_box)
         self.combo_discount_type.currentTextChanged.connect(self.change_place_holder_discount)
         self.combo_discount_type.currentTextChanged.connect(self.enable_discount_entry)
 
@@ -32,20 +31,20 @@ class SalesView(QWidget):
         self.lbl_title = QLabel("Punto de Venta")
         self.lbl_title.setStyleSheet("font-size: 26px; font-weight: bold; color: #2c3e50;")
         
-        self.btn_open_box = QPushButton(" Abrir Caja")
-        self.btn_open_box.setObjectName("btn_open_box")
+        self.btn_open_register = QPushButton(" Abrir Caja")
+        self.btn_open_register.setObjectName("btn_open_register")
         
-        self.btn_close_box = QPushButton(" Cerrar Caja")
-        self.btn_close_box.setObjectName("btn_close_box")
+        self.btn_close_register = QPushButton(" Cerrar Caja")
+        self.btn_close_register.setObjectName("btn_close_register")
 
-        self.lbl_cash_in_box = QLabel("Caja: $0.00")
-        self.lbl_cash_in_box.setStyleSheet("background: #ecf0f1; padding: 8px; border-radius: 5px; font-weight: bold;")
+        self.lbl_cash_in_register = QLabel("Caja: $0.00")
+        self.lbl_cash_in_register.setStyleSheet("background: #ecf0f1; padding: 8px; border-radius: 5px; font-weight: bold;")
 
         header_layout.addWidget(self.lbl_title)
         header_layout.addStretch()
-        header_layout.addWidget(self.lbl_cash_in_box)
-        header_layout.addWidget(self.btn_open_box)
-        header_layout.addWidget(self.btn_close_box)
+        header_layout.addWidget(self.lbl_cash_in_register)
+        header_layout.addWidget(self.btn_open_register)
+        header_layout.addWidget(self.btn_close_register)
         
         self.main_layout.addLayout(header_layout)
 
@@ -158,14 +157,14 @@ class SalesView(QWidget):
     def open_box(self):
         """Método que abre el dialogo de abrir caja.
         """   
-        dialog = OpenBoxDialog("Camila C",self)
+        dialog = OpenRegisterDialog("Camila C",self)
         if dialog.exec():
             print("caja abierta con exito...")     
             
     def close_box(self):
         """Método que abre el dialogo de cerrar caja.
         """   
-        dialog = CloseBoxDialog(1245000,750000,50000,self)
+        dialog = CloseRegisterDialog(1245000,750000,50000,self)
         if dialog.exec():
             print("caja cerrada con exito...") 
                 
