@@ -8,7 +8,6 @@ from ui.confirm_payment_view import ConfirmPaymentDialog
 from ui.open_register_view import OpenRegisterDialog
 from ui.close_register_view import CloseRegisterDialog
 
-
 class SalesView(QWidget):
     def __init__(self):
         super().__init__()

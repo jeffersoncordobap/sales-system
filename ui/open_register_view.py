@@ -51,9 +51,7 @@ class OpenRegisterDialog(QDialog):
         amount_layout.addWidget(lbl_instruction,alignment=Qt.AlignCenter)
         amount_layout.addWidget(self.input_initial_amount)
         layout.addLayout(amount_layout)
-
         layout.addStretch()
-
 
         self.btn_confirm = QPushButton("INICIAR TURNO")
         self.btn_confirm.setObjectName("btn_confirm_open_register")
@@ -70,3 +68,4 @@ class OpenRegisterDialog(QDialog):
 
     def get_initial_amount(self):
         return float(self.input_initial_amount.text() or 0)
+

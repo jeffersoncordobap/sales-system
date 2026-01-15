@@ -626,21 +626,21 @@ QLabel#textoAzul { font-size: 18px; font-weight: bold; color: #2980b9; }
    ========================================================== */
 
 /* Contenedor del Formulario */
-QFrame#ContenedorFormGastos {
+QFrame#container_form_expense {
     background-color: #ffffff;
     border: 1px solid #dfe4ea;
     border-radius: 10px;
     padding: 15px;
 }
 
-QLabel#TituloGastos {
+QLabel#expense_title {
     font-size: 16px;
     font-weight: bold;
     color: #e67e22; /* Naranja */
     margin-bottom: 10px;
 }
 
-QLineEdit#EntradaMontoGasto {
+QLineEdit#input_amount_of_expenditure {
     font-size: 18px;
     font-weight: bold;
     color: #2c3e50;
@@ -650,7 +650,7 @@ QLineEdit#EntradaMontoGasto {
 }
 
 /* Botón Guardar */
-QPushButton#BtnGuardarGasto {
+QPushButton#btn_save_spent {
     background-color: #e67e22;
     color: white;
     font-size: 14px;
@@ -658,7 +658,7 @@ QPushButton#BtnGuardarGasto {
     border-radius: 6px;
 }
 
-QPushButton#BtnGuardarGasto:hover {
+QPushButton#btn_save_spent:hover {
     background-color: #d35400;
 }
 
@@ -674,28 +674,28 @@ QLabel#SubtituloGastos {
    ========================================================== */
 
 /* 1. Contenedor de Búsqueda (Arriba) */
-QFrame#ContenedorBusqueda {
+QFrame#search_container {
     background-color: #ffffff;
     border-bottom: 2px solid #ecf0f1;
     padding: 5px;
 }
 
 /* 2. Barra de Resumen (El banner de información) */
-QFrame#BarraResumen {
+QFrame#summary_bar {
     background-color: #ebf5fb; /* Un azul pálido muy suave */
     border: 1px solid #d6eaf8;
     border-radius: 6px;
     padding: 10px;
 }
 
-QLabel#InfoVentaEncontrada {
+QLabel#lbl_sales_information {
     font-size: 14px;
     font-weight: bold;
     color: #2980b9; /* Azul fuerte para destacar el ID */
 }
 
 /* 3. Tarjeta Blanca para la Tabla */
-QFrame#CardBlanca {
+QFrame#container_table_details {
     background-color: #ffffff;
     border: 1px solid #dfe4ea;
     border-radius: 10px;
@@ -712,7 +712,7 @@ QFrame#PanelDerecho {
 }
 
 /* Títulos de Secciones */
-QLabel#TituloSeccion {
+QLabel#seccion_title {
     font-size: 13px;
     font-weight: bold;
     color: #7f8c8d;
@@ -729,7 +729,7 @@ QSpinBox, QComboBox {
 }
 
 /* 6. Zona de Reembolso (Resultado Final) */
-QLabel#LabelTotalReembolso {
+QLabel#lbl_full_refund {
     font-size: 22px;
     font-weight: bold;
     color: #8e44ad;
@@ -740,7 +740,7 @@ QLabel#LabelTotalReembolso {
 }
 
 /* 7. Botón Procesar */
-QPushButton#BtnProcesarDevolucion {
+QPushButton#btn_process {
     background-color: #8e44ad;
     color: white;
     font-size: 15px;
@@ -749,15 +749,15 @@ QPushButton#BtnProcesarDevolucion {
     border: none;
 }
 
-QPushButton#BtnProcesarDevolucion:hover {
+QPushButton#btn_process:hover {
     background-color: #7d3c98;
 }
 
-QPushButton#BtnProcesarDevolucion:pressed {
+QPushButton#btn_process:pressed {
     background-color: #6c3483;
 }
 
-QLineEdit#EntradaBusquedaDev {
+QLineEdit#input_search_return {
     background-color: #ffffff;
     border: 1px solid #ced4da;
     border-radius: 5px;
@@ -766,13 +766,13 @@ QLineEdit#EntradaBusquedaDev {
     color: #2c3e50;
 }
 
-QLineEdit#EntradaBusquedaDev:focus {
+QLineEdit#input_search_return:focus {
     border: 2px solid #3498db; 
     background-color: #faffff;
 }
 
 /* --- Estilo para el Botón Buscar --- */
-QPushButton#BtnBuscarVenta {
+QPushButton#btn_search {
     background-color: #2c3e50; 
     color: white;
     font-size: 13px;
@@ -782,11 +782,11 @@ QPushButton#BtnBuscarVenta {
     border: none;
 }
 
-QPushButton#BtnBuscarVenta:hover {
+QPushButton#btn_search:hover {
     background-color: #34495e; 
 }
 
-QPushButton#BtnBuscarVenta:pressed {
+QPushButton#btn_search:pressed {
     background-color: #1a252f; 
     padding-top: 10px;        
 }

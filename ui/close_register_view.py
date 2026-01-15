@@ -121,6 +121,7 @@ class CloseRegisterDialog(QDialog):
             return
         self.accept()
 
+
     def get_closing_data(self):
         """Devuelve todos los montos para guardarlos en la BD"""
         return {
