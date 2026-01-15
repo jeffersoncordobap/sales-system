@@ -175,8 +175,8 @@ class SalesView(QWidget):
         else:
             self.input_discount.setPlaceholderText("0.00")
             
-    def enable_discount_entry(self,descuento):
-        if descuento =="% Desc." or descuento == "$ Desc.":
+    def enable_discount_entry(self,discount):
+        if discount =="% Desc." or discount == "$ Desc.":
             self.input_discount.setReadOnly(False)
         else:
             self.input_discount.setReadOnly(True)

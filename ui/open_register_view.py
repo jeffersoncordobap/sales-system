@@ -60,8 +60,8 @@ class OpenRegisterDialog(QDialog):
 
     def validate_and_accept(self):
         try:
-            monto = float(self.input_initial_amount.text())
-            if monto < 0: raise ValueError
+            amount = float(self.input_initial_amount.text())
+            if amount < 0: raise ValueError
             self.accept()
         except ValueError:
             QMessageBox.warning(self, "Error", "Por favor, ingrese un monto válido.")

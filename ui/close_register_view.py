@@ -34,7 +34,7 @@ class CloseRegisterDialog(QDialog):
         self.frame_card_and_transfer.setObjectName("frame_card_and_transfer")
         card_and_transfer_layout = QHBoxLayout(self.frame_card_and_transfer)
         
-        info_card_and_transfer = (f"💳 Tarjeta: **${self.amount_per_card:,.2f}** |  "
+        info_card_and_transfer = (f"💳 Tarjeta: **${self.amount_per_card:,.2f}** |"
                         f"📲 Transf: **${self.amount_per_transfer:,.2f}**")
         lbl_info_card_and_transfer = QLabel(info_card_and_transfer)
         lbl_info_card_and_transfer.setObjectName("lbl_info_card_and_transfer")
