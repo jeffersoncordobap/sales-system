@@ -10,156 +10,156 @@ from PySide6.QtGui import QColor
 class ReturnsView(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setObjectName("PaginaDevoluciones")
+        self.setObjectName("ReturnsView")
        
-        self.layout_principal = QVBoxLayout(self)
-        self.layout_principal.setContentsMargins(20, 20, 20, 20)
-        self.layout_principal.setSpacing(15)
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.setContentsMargins(20, 20, 20, 20)
+        self.main_layout.setSpacing(15)
 
-        self.crear_cabecera_busqueda()
+        self.create_search_header()
 
-        self.crear_barra_resumen_venta()
+        self.create_sales_summary_bar()
 
-        self.cuerpo = QHBoxLayout()
-        self.crear_tabla_detalle_venta()
-        self.crear_panel_configuracion()
+        self.body = QHBoxLayout()
+        self.create_sales_detail_table()
+        self.create_configuration_panel()
         
-        self.layout_principal.addLayout(self.cuerpo)
+        self.main_layout.addLayout(self.body)
 
-    def crear_cabecera_busqueda(self):
-        contenedor = QFrame()
-        contenedor.setObjectName("ContenedorBusqueda")
-        layout = QHBoxLayout(contenedor)
+    def create_search_header(self):
+        search_container = QFrame()
+        search_container.setObjectName("search_container")
+        layout = QHBoxLayout(search_container)
         
         layout.addWidget(QLabel("🔍 Número de Factura:"))
-        self.entrada_busqueda = QLineEdit()
-        self.entrada_busqueda.setObjectName("EntradaBusquedaDev")
-        self.entrada_busqueda.setPlaceholderText("Escriba el numero de factura...")
-        self.entrada_busqueda.setFixedWidth(250)
+        self.input_search_return = QLineEdit()
+        self.input_search_return.setObjectName("input_search_return")
+        self.input_search_return.setPlaceholderText("Escriba el numero de factura...")
+        self.input_search_return.setFixedWidth(250)
         
-        self.btn_buscar = QPushButton("BUSCAR")
-        self.btn_buscar.setObjectName("BtnBuscarVenta")
-        self.btn_buscar.setFixedWidth(120)
+        self.btn_search = QPushButton("BUSCAR")
+        self.btn_search.setObjectName("btn_search")
+        self.btn_search.setFixedWidth(120)
 
-        layout.addWidget(self.entrada_busqueda)
-        layout.addWidget(self.btn_buscar)
+        layout.addWidget(self.input_search_return)
+        layout.addWidget(self.btn_search)
         layout.addStretch() 
 
-        self.layout_principal.addWidget(contenedor)
+        self.main_layout.addWidget(search_container)
 
-    def crear_barra_resumen_venta(self):
+    def create_sales_summary_bar(self):
         """Nueva sección: Muestra datos clave de la factura encontrada"""
-        self.barra_resumen = QFrame()
-        self.barra_resumen.setObjectName("BarraResumen")
-        self.barra_resumen.setMinimumHeight(50)
+        self.summary_bar = QFrame()
+        self.summary_bar.setObjectName("summary_bar")
+        self.summary_bar.setMinimumHeight(50)
         
-        layout = QHBoxLayout(self.barra_resumen)
+        layout = QHBoxLayout(self.summary_bar)
         
-        self.lbl_info_venta = QLabel("Esperando factura...")
-        self.lbl_info_venta.setObjectName("InfoVentaEncontrada")
+        self.lbl_sales_information = QLabel("Esperando factura...")
+        self.lbl_sales_information.setObjectName("lbl_sales_information")
         
-        self.lbl_fecha_venta = QLabel("Fecha: --/--/--")
-        self.lbl_cliente_venta = QLabel("Cliente: General")
+        self.lbl_sale_date = QLabel("Fecha: --/--/--")
+        self.lbl_sale_client = QLabel("Cliente: General")
 
-        layout.addWidget(self.lbl_info_venta)
+        layout.addWidget(self.lbl_sales_information)
         layout.addStretch()
-        layout.addWidget(self.lbl_fecha_venta)
+        layout.addWidget(self.lbl_sale_date)
         layout.addSpacing(20)
-        layout.addWidget(self.lbl_cliente_venta)
+        layout.addWidget(self.lbl_sale_client)
 
-        self.layout_principal.addWidget(self.barra_resumen)
+        self.main_layout.addWidget(self.summary_bar)
 
-    def crear_tabla_detalle_venta(self):
-        contenedor_tabla = QFrame()
-        contenedor_tabla.setObjectName("CardBlanca")
-        layout = QVBoxLayout(contenedor_tabla)
+    def create_sales_detail_table(self):
+        container_table_details = QFrame()
+        container_table_details.setObjectName("container_table_details")
+        layout = QVBoxLayout(container_table_details)
 
-        titulo = QLabel("PRODUCTOS COMPRADOS")
-        titulo.setObjectName("TituloSeccion")
-        layout.addWidget(titulo)
+        seccion_title = QLabel("PRODUCTOS COMPRADOS")
+        seccion_title.setObjectName("seccion_title")
+        layout.addWidget(seccion_title)
         
-        self.tabla_items = QTableWidget()
-        self.tabla_items.setColumnCount(5)
-        self.tabla_items.setHorizontalHeaderLabels(["Cód.", "Producto", "Cant. Comprada", "Precio Pagado", "Seleccionar"])
-        self.tabla_items.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.items_table = QTableWidget()
+        self.items_table.setColumnCount(5)
+        self.items_table.setHorizontalHeaderLabels(["Cód.", "Producto", "Cant. Comprada", "Precio Pagado", "Seleccionar"])
+        self.items_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         
-        layout.addWidget(self.tabla_items)
-        self.cuerpo.addWidget(contenedor_tabla, 2)
+        layout.addWidget(self.items_table)
+        self.body.addWidget(container_table_details, 2)
 
-    def crear_panel_configuracion(self):
-        self.panel_opciones = QFrame()
-        self.panel_opciones.setObjectName("PanelDerecho")
-        self.panel_opciones.setFixedWidth(320)
+    def create_configuration_panel(self):
+        self.options_panel = QFrame()
+        self.options_panel.setObjectName("options_panel")
+        self.options_panel.setFixedWidth(320)
         
-        layout = QVBoxLayout(self.panel_opciones)
+        layout = QVBoxLayout(self.options_panel)
         layout.setSpacing(10)
 
-        titulo = QLabel("DETALLES DE DEVOLUCIÓN")
-        titulo.setObjectName("TituloSeccion")
-        layout.addWidget(titulo)
+        titulo_return_details = QLabel("DETALLES DE DEVOLUCIÓN")
+        titulo_return_details.setObjectName("titulo_return_details")
+        layout.addWidget(titulo_return_details)
     
         layout.addWidget(QLabel("Cantidad a devolver:"))
-        self.spin_cantidad = QSpinBox()
-        self.spin_cantidad.setMinimum(1)
-        layout.addWidget(self.spin_cantidad)
+        self.spin_amount = QSpinBox()
+        self.spin_amount.setMinimum(1)
+        layout.addWidget(self.spin_amount)
 
         layout.addWidget(QLabel("Estado físico:"))
-        self.combo_estado = QComboBox()
-        self.combo_estado.addItems(["Buen Estado (Vuelve al Inventario)", "Dañado / Defectuoso (Baja)"])
-        layout.addWidget(self.combo_estado)
+        self.combo_state = QComboBox()
+        self.combo_state.addItems(["Buen Estado (Vuelve al Inventario)", "Dañado / Defectuoso (Baja)"])
+        layout.addWidget(self.combo_state)
 
         layout.addWidget(QLabel("Motivo:"))
-        self.combo_motivo = QComboBox()
-        self.combo_motivo.addItems(["Cambio de producto", "Garantía", "Error de compra", "Otro"])
-        layout.addWidget(self.combo_motivo)
+        self.combo_reason = QComboBox()
+        self.combo_reason.addItems(["Cambio de producto", "Garantía", "Error de compra", "Otro"])
+        layout.addWidget(self.combo_reason)
 
         layout.addStretch() 
 
 
-        linea = QFrame()
-        linea.setFrameShape(QFrame.HLine)
-        linea.setFrameShadow(QFrame.Sunken)
-        layout.addWidget(linea)
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+        layout.addWidget(line)
 
-        self.lbl_total_reembolso = QLabel("REEMBOLSO: $0.00")
-        self.lbl_total_reembolso.setObjectName("LabelTotalReembolso")
-        self.lbl_total_reembolso.setAlignment(Qt.AlignCenter)
-        layout.addWidget(self.lbl_total_reembolso)
+        self.lbl_full_refund = QLabel("REEMBOLSO: $0.00")
+        self.lbl_full_refund.setObjectName("lbl_full_refund")
+        self.lbl_full_refund.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.lbl_full_refund)
 
-        self.btn_procesar = QPushButton("CONFIRMAR DEVOLUCIÓN")
-        self.btn_procesar.setObjectName("BtnProcesarDevolucion")
-        self.btn_procesar.setMinimumHeight(60)
-        layout.addWidget(self.btn_procesar)
+        self.btn_process = QPushButton("CONFIRMAR DEVOLUCIÓN")
+        self.btn_process.setObjectName("btn_process")
+        self.btn_process.setMinimumHeight(60)
+        layout.addWidget(self.btn_process)
 
-        self.cuerpo.addWidget(self.panel_opciones)
+        self.body.addWidget(self.options_panel)
         
 
-    def cargar_producto_seleccionado(self, item):
+    def cargar_selected_product(self, item):
         row_index = item.row()
         
-        for r in range(self.tabla_items.rowCount()):
-            self.tabla_items.setItem(r, 4, QTableWidgetItem("")) 
-            for c in range(self.tabla_items.columnCount()):
-                self.tabla_items.item(r, c).setBackground(QColor("white"))
+        for r in range(self.items_table.rowCount()):
+            self.items_table.setItem(r, 4, QTableWidgetItem("")) 
+            for c in range(self.items_table.columnCount()):
+                self.items_table.item(r, c).setBackground(QColor("white"))
 
-        marca_seleccion = QTableWidgetItem(" ✅ ")
-        marca_seleccion.setTextAlignment(Qt.AlignCenter)
-        self.tabla_items.setItem(row_index, 4, marca_seleccion)
+        selection_mark = QTableWidgetItem(" ✅ ")
+        selection_mark.setTextAlignment(Qt.AlignCenter)
+        self.items_table.setItem(row_index, 4, selection_mark)
         
-        for c in range(self.tabla_items.columnCount()):
-            self.tabla_items.item(row_index, c).setBackground(QColor("#f4ecf7")) 
+        for c in range(self.items_table.columnCount()):
+            self.items_table.item(row_index, c).setBackground(QColor("#f4ecf7")) 
 
-        self.producto_actual = self.tabla_items.item(row_index, 1).text()
-        cantidad_comprada = int(self.tabla_items.item(row_index, 2).text())
-        self.precio_unitario_venta = float(self.tabla_items.item(row_index, 3).text())
+        self.current_product = self.items_table.item(row_index, 1).text()
+        quantity_purchased = int(self.items_table.item(row_index, 2).text())
+        self.unit_sales_price = float(self.items_table.item(row_index, 3).text())
 
-        self.spin_cantidad.setRange(1, cantidad_comprada) 
-        self.spin_cantidad.setValue(1)
+        self.spin_amount.setRange(1, quantity_purchased) 
+        self.spin_amount.setValue(1)
         
-        self.lbl_info_venta.setText(f"Seleccionado: {self.producto_actual}")
-        self.actualizar_calculo_reembolso()
+        self.lbl_sales_information.setText(f"Seleccionado: {self.current_product}")
+        self.update_refund_calculation()
     
-    def actualizar_calculo_reembolso(self):
-        cantidad = self.spin_cantidad.value()
-        total = cantidad * self.precio_unitario_venta
-        self.lbl_total_reembolso.setText(f"Total Reembolso: ${total:,.2f}")
+    def update_refund_calculation(self):
+        amount = self.spin_amount.value()
+        total = amount * self.unit_sales_price
+        self.lbl_full_refund.setText(f"Total Reembolso: ${total:,.2f}")

@@ -5,8 +5,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 from ui.confirm_payment_view import ConfirmPaymentDialog
-from ui.open_box_view import OpenBoxDialog
-from ui.close_box_view import CloseBoxDialog
+from ui.open_register_view import OpenBoxDialog
+from ui.close_register_view import CloseBoxDialog
 
 
 class SalesView(QWidget):
